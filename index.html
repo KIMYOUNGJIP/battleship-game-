@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>배틀쉽 전술 해전 (Battleship Tactical) - 1v1 해전 게임</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Pretendard:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <!-- Tactical 2D Viewport Canvas Container -->
+  <div id="canvas-container"></div>
+  <div class="overlay-vignette"></div>
+
+  <!-- Toast Announcements -->
+  <div id="toast-container"></div>
+
+  <!-- Top Navigation & Status Bar -->
+  <header id="top-bar" class="hud-panel">
+    <div class="logo-area">
+      <span class="logo-icon">⚓</span>
+      <h1 class="logo-title">BATTLESHIP <span>TACTICAL</span></h1>
+    </div>
+
+    <!-- Turn status during battle -->
+    <div id="turn-indicator" class="turn-badge your-turn hidden">
+      <div class="turn-dot"></div>
+      <span id="turn-text">당신의 차례 (YOUR TURN)</span>
+    </div>
+
+    <div class="top-controls">
+      <button id="btn-sound" class="btn-icon" title="소리 켜기/끄기">🔊</button>
+      <button id="btn-menu" class="btn-icon" title="메인 메뉴">⚙️</button>
+    </div>
+  </header>
+
+  <!-- Battle Fleet Status Cards (Shown during battle) -->
+  <div id="battle-fleets" class="hidden">
+    <!-- Friendly Fleet -->
+    <div class="fleet-card hud-panel">
+      <div class="fleet-card-header">
+        <span style="color: var(--cyan-glow);">🔵 내 함대 상태</span>
+        <span id="friendly-alive-count">5 / 5 생존</span>
+      </div>
+      <div id="friendly-ship-list" class="ship-list">
+        <!-- Generated dynamically -->
+      </div>
+    </div>
+
+    <!-- Enemy Fleet -->
+    <div class="fleet-card hud-panel">
+      <div class="fleet-card-header">
+        <span style="color: var(--red-glow);">🔴 적 함대 상태</span>
+        <span id="enemy-alive-count">5 / 5 생존</span>
+      </div>
+      <div id="enemy-ship-list" class="ship-list">
+        <!-- Generated dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Ship Placement Bottom Bar -->
+  <div id="placement-bar" class="hud-panel hidden">
+    <div class="placement-ships" id="placement-ship-buttons">
+      <!-- Generated dynamically -->
+    </div>
+
+    <div class="rotate-hint">
+      회전: <span class="kbd-badge">R</span> 또는 <span class="kbd-badge">우클릭</span>
+    </div>
+
+    <button id="btn-rotate" class="action-btn secondary" title="회전 변경">🔄 회전 (가로)</button>
+    <button id="btn-random-place" class="action-btn secondary">🎲 자동 배치</button>
+    <button id="btn-reset-place" class="action-btn secondary">초기화</button>
+    <button id="btn-ready-battle" class="action-btn ready-btn" disabled>전투 시작 (Ready)</button>
+  </div>
+
+  <!-- Camera Presets (Bottom Left) -->
+  <div id="camera-presets">
+    <button id="btn-cam-overview" class="btn-icon" title="전체 뷰">🌐</button>
+    <button id="btn-cam-target" class="btn-icon" title="적 해역 포격 뷰">🎯</button>
+    <button id="btn-cam-fleet" class="btn-icon" title="내 함대 뷰">🛡️</button>
+  </div>
+
+  <!-- In-game Emoji Reactions (Bottom Right) -->
+  <div id="chat-bar" class="hidden">
+    <button class="emoji-btn" data-emoji="🎯">🎯</button>
+    <button class="emoji-btn" data-emoji="💥">💥</button>
+    <button class="emoji-btn" data-emoji="🌊">🌊</button>
+    <button class="emoji-btn" data-emoji="😱">😱</button>
+    <button class="emoji-btn" data-emoji="👏">👏</button>
+  </div>
+
+  <!-- MODAL: Main Mode Selection -->
+  <div id="modal-menu" class="modal-backdrop">
+    <div class="modal-content hud-panel">
+      <h2 class="modal-title">BATTLESHIP TACTICAL</h2>
+      <p class="modal-subtitle">실감나는 해군 전술 작전 지휘소에 오신 것을 환영합니다.<br>대결 모드를 선택하세요.</p>
+
+      <div class="menu-options">
+        <button id="btn-mode-ai" class="menu-card-btn">
+          <span class="menu-card-icon">🤖</span>
+          <div class="menu-card-text">
+            <h4>컴퓨터 1:1 대전 (vs AI)</h4>
+            <p>스마트 표적 탐색 알고리즘을 갖춘 AI와 싱글 플레이</p>
+          </div>
+        </button>
+
+        <button id="btn-mode-online" class="menu-card-btn">
+          <span class="menu-card-icon">🌐</span>
+          <div class="menu-card-text">
+            <h4>온라인 1:1 실시간 대전</h4>
+            <p>방 코드를 만들어 친구 또는 다른 플레이어와 실시간 대전</p>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Online Multiplayer Room Setup -->
+  <div id="modal-online" class="modal-backdrop hidden">
+    <div class="modal-content hud-panel">
+      <h2 class="modal-title">온라인 1:1 대전</h2>
+      <p class="modal-subtitle">방을 새로 개설하거나 생성된 방 코드를 입력하여 참가하세요.</p>
+
+      <!-- Subview 1: Choice (Create vs Join) -->
+      <div id="online-choice-view" class="menu-options">
+        <button id="btn-create-room" class="action-btn">방 만들기 (Create Room)</button>
+        <div style="display: flex; gap: 8px; margin-top: 10px;">
+          <input type="text" id="input-room-code" class="input-code" placeholder="방 코드 (5자리)" maxlength="5">
+          <button id="btn-join-room" class="action-btn secondary">참가</button>
+        </div>
+        <button id="btn-online-back" class="action-btn secondary" style="margin-top: 8px;">뒤로 가기</button>
+      </div>
+
+      <!-- Subview 2: Waiting for Opponent -->
+      <div id="online-waiting-view" class="hidden" style="display: flex; flex-direction: column; gap: 16px;">
+        <div class="room-code-box">
+          <span style="font-size: 12px; color: var(--text-dim);">상대방에게 아래 방 코드를 공유하세요</span>
+          <span id="display-room-code" class="room-code-text">------</span>
+        </div>
+        <button id="btn-copy-link" class="action-btn secondary">📋 초대 링크 복사</button>
+        <p style="font-size: 13px; color: var(--amber-glow);">상대방 접속을 대기하는 중입니다...</p>
+        <button id="btn-cancel-waiting" class="action-btn secondary">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Game Over -->
+  <div id="modal-gameover" class="modal-backdrop hidden">
+    <div class="modal-content hud-panel">
+      <h2 id="gameover-title" class="gameover-banner win">VICTORY</h2>
+      <p id="gameover-desc" class="modal-subtitle">적의 모든 함선을 격침시켰습니다!</p>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span id="stat-shots" class="stat-val">0</span>
+          <span class="stat-lbl">총 발사수</span>
+        </div>
+        <div class="stat-item">
+          <span id="stat-hits" class="stat-val">0</span>
+          <span class="stat-lbl">명중수</span>
+        </div>
+        <div class="stat-item">
+          <span id="stat-acc" class="stat-val">0%</span>
+          <span class="stat-lbl">명중률</span>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 12px; justify-content: center; margin-top: 10px;">
+        <button id="btn-rematch" class="action-btn">다시 하기 (Rematch)</button>
+        <button id="btn-gameover-menu" class="action-btn secondary">메인 메뉴</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Game Script -->
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
