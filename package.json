@@ -1,0 +1,13 @@
+{
+  "name": "battleship-3d",
+  "version": "1.0.0",
+  "description": "3D Battleship game with Three.js, AI singleplayer, and WebSocket multiplayer",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
