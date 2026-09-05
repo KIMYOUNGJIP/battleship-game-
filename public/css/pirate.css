@@ -1,0 +1,1136 @@
+/* ==========================================================================
+   PIRATE MATH BATTLESHIP RPG - HIGH-END EDUCATION GAME STYLESHEET
+   Matches exact reference UI (Top bar, Stage progression, Fleet boards, Parchment Quiz)
+   ========================================================================== */
+
+:root {
+  --bg-ocean: #091722;
+  --bg-ocean-deep: #050e16;
+  --sea-card-bg: rgba(13, 38, 56, 0.88);
+  --sea-card-border: #1e5272;
+  --sea-cell-bg: #0e344c;
+  --sea-cell-hover: #195880;
+  --sea-cell-border: #164666;
+  --sea-cell-hit: #9e2a2b;
+  --sea-cell-miss: #0a2538;
+  --accent-gold: #ffbe3b;
+  --accent-gold-light: #ffe599;
+  --parchment-bg: #f5edd6;
+  --parchment-card: #f9f4e6;
+  --parchment-border: #d6be96;
+  --parchment-text: #2c1b0c;
+  --parchment-sub: #7a5e3f;
+  --hp-green: #2ecc71;
+  --hp-red: #e74c3c;
+  --hp-bg: rgba(0, 0, 0, 0.45);
+  --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Cinzel', 'Noto Serif KR', serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: radial-gradient(circle at center top, #11344e 0%, #091824 55%, #040a10 100%);
+  font-family: var(--font-main);
+  color: #e2effa;
+}
+
+#app-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   1. TOP GLOBAL NAVIGATION BAR
+   ========================================================================== */
+#top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 24px;
+  background: rgba(5, 15, 23, 0.95);
+  border-bottom: 1px solid rgba(40, 95, 130, 0.35);
+  z-index: 50;
+  height: 60px;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.helm-icon {
+  width: 38px;
+  height: 38px;
+  background: radial-gradient(circle, #ffe699 0%, #b8862d 80%, #684610 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px rgba(255, 190, 59, 0.4), inset 0 0 4px #fff;
+  border: 2px solid #5a3809;
+}
+
+.helm-icon svg {
+  width: 26px;
+  height: 26px;
+  fill: #3b2305;
+}
+
+.title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.game-subtitle {
+  font-size: 0.76rem;
+  color: #7ca5be;
+  font-weight: 500;
+}
+
+.top-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(13, 31, 45, 0.85);
+  border: 1px solid rgba(50, 110, 150, 0.4);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffe699;
+}
+
+.turn-pill {
+  background: rgba(22, 55, 35, 0.85);
+  border: 1px solid #2ecc71;
+  color: #a8f5c3;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  box-shadow: 0 0 12px rgba(46, 204, 113, 0.25);
+  transition: all 0.3s;
+}
+
+.turn-pill.enemy-turn {
+  background: rgba(65, 20, 20, 0.85);
+  border-color: #e74c3c;
+  color: #ffb8b0;
+  box-shadow: 0 0 12px rgba(231, 76, 60, 0.3);
+}
+
+.user-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-gold);
+  overflow: hidden;
+  background: #17364d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon-top {
+  background: rgba(18, 45, 66, 0.8);
+  border: 1px solid #26638a;
+  color: #9ecced;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.2s;
+}
+
+.btn-icon-top:hover {
+  background: #256691;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   2. STAGE PROGRESSION BAR (4 STAGES)
+   ========================================================================== */
+#stage-bar-container {
+  padding: 10px 24px 6px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(7, 20, 31, 0.7);
+  border-bottom: 1px solid rgba(25, 65, 90, 0.3);
+}
+
+.stages-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.stage-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(14, 34, 49, 0.7);
+  border: 1px solid rgba(40, 95, 130, 0.4);
+  border-radius: 12px;
+  color: #8daec5;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.stage-tab .stage-num {
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+
+.stage-tab.active {
+  background: linear-gradient(135deg, #74441b 0%, #4a2b10 100%);
+  border: 2px solid #e5a452;
+  color: #ffeedb;
+  box-shadow: 0 4px 18px rgba(229, 164, 82, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.stage-tab.active .stage-num {
+  color: #ffd152;
+}
+
+.stage-tab.cleared {
+  background: rgba(12, 45, 30, 0.8);
+  border-color: #2ecc71;
+  color: #92eab4;
+}
+
+.stage-tab.cleared::after {
+  content: '✓';
+  position: absolute;
+  right: 12px;
+  color: #2ecc71;
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+.stage-hint-text {
+  font-size: 0.78rem;
+  color: #799bb3;
+  margin-left: 4px;
+}
+
+/* ==========================================================================
+   3. MAIN BATTLE ARENA (LEFT GRIDS + RIGHT MATH CARD)
+   ========================================================================== */
+#battle-arena {
+  display: flex;
+  flex: 1;
+  padding: 14px 24px;
+  gap: 20px;
+  overflow: hidden;
+}
+
+/* Left Fleet Battle Container */
+.fleet-battle-panel {
+  flex: 1.35;
+  display: flex;
+  flex-direction: column;
+  background: rgba(9, 29, 44, 0.75);
+  border: 1px solid #1c4d6c;
+  border-radius: 18px;
+  padding: 14px 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  gap: 12px;
+  overflow: hidden;
+}
+
+/* VS FLEET HEADER BAR */
+.fleet-vs-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(6, 19, 30, 0.85);
+  border: 1px solid #16415d;
+  border-radius: 14px;
+  padding: 8px 16px;
+  gap: 16px;
+}
+
+.fleet-player-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.fleet-player-card.enemy {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.avatar-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-gold);
+  background: #0d283c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.avatar-wrapper.enemy-avatar {
+  border-color: #e74c3c;
+}
+
+.fleet-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 3px;
+}
+
+.fleet-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #76a1bd;
+}
+
+.fleet-name {
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.hp-bar-outer {
+  width: 100%;
+  height: 8px;
+  background: var(--hp-bg);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.hp-bar-inner {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.player-hp {
+  background: linear-gradient(90deg, #27ae60, #2ecc71);
+  box-shadow: 0 0 8px rgba(46, 204, 113, 0.5);
+}
+
+.enemy-hp {
+  background: linear-gradient(90deg, #c0392b, #e74c3c);
+  box-shadow: 0 0 8px rgba(231, 76, 60, 0.5);
+  margin-left: auto;
+}
+
+.vs-badge {
+  font-size: 1.3rem;
+  font-weight: 900;
+  font-family: var(--font-serif);
+  color: #ffd152;
+  text-shadow: 0 0 10px rgba(255, 209, 82, 0.6);
+  padding: 0 8px;
+}
+
+/* DUAL 8x8 GRIDS CONTAINER */
+.grids-dual-container {
+  display: flex;
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+}
+
+.grid-board-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: rgba(10, 27, 40, 0.7);
+  border: 1px solid #18425d;
+  border-radius: 12px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.board-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+
+.board-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #d1e8f8;
+}
+
+.board-desc {
+  font-size: 0.72rem;
+  color: #6a92ad;
+}
+
+/* 8x8 GRID LAYOUT */
+.sea-grid-8x8 {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  gap: 4px;
+  flex: 1;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  background: rgba(4, 14, 22, 0.5);
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid #11364d;
+}
+
+.sea-cell {
+  position: relative;
+  background: var(--sea-cell-bg);
+  border: 1px solid var(--sea-cell-border);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: hidden;
+}
+
+.sea-cell .coord-label {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: #4b7897;
+  pointer-events: none;
+  line-height: 1;
+  z-index: 2;
+}
+
+/* Interactive Enemy Grid when Cannon is Ready */
+.enemy-grid.target-ready .sea-cell:not(.fired) {
+  cursor: crosshair;
+  border-color: #2b749e;
+  animation: cellGlow 1.6s infinite alternate;
+}
+
+.enemy-grid.target-ready .sea-cell:not(.fired):hover {
+  background: #1d6088;
+  border-color: var(--accent-gold);
+  transform: scale(1.06);
+  box-shadow: 0 0 12px rgba(255, 190, 59, 0.6);
+  z-index: 5;
+}
+
+/* Cell States */
+.sea-cell.hit {
+  background: radial-gradient(circle, #ff4d4d 0%, #8b1818 100%) !important;
+  border-color: #ff7675 !important;
+  box-shadow: 0 0 10px rgba(255, 77, 77, 0.7);
+  animation: hitPulse 1.5s infinite alternate;
+}
+
+.sea-cell.miss {
+  background: #082030 !important;
+  border-color: #123d5a !important;
+}
+
+.sea-cell.miss::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: #5dade2;
+  border-radius: 50%;
+  opacity: 0.75;
+  box-shadow: 0 0 6px #5dade2;
+}
+
+.sea-cell.sunk {
+  background: #4a1515 !important;
+  border-color: #e74c3c !important;
+}
+
+/* ENHANCED PIRATE SHIP GRAPHICS ON FRIENDLY BOARD */
+.sea-cell.ship-cell {
+  background: #6a3e1c;
+  border-color: #a86c3d;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.4);
+}
+
+.sea-cell.ship-cell .ship-segment {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #7c4820 0%, #583112 100%);
+  background-image: repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0,0,0,0.18) 4px, rgba(0,0,0,0.18) 6px);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.sea-cell.ship-cell.ship-cap-bow-h {
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+}
+
+.sea-cell.ship-cell.ship-cap-stern-h {
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+
+.sea-cell.ship-cell.ship-cap-bow-v {
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+.sea-cell.ship-cell.ship-cap-stern-v {
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+
+.sea-cell.ship-cell .ship-sail {
+  font-size: 1.15rem;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
+}
+
+/* BOTTOM FLEET SUMMARY CARDS */
+.fleet-bottom-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.fleet-summary-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(6, 18, 28, 0.85);
+  border: 1px solid #17425f;
+  border-radius: 12px;
+  padding: 8px 14px;
+}
+
+.summary-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid #367ca7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  background: #0c2537;
+}
+
+.summary-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-team {
+  font-size: 0.72rem;
+  color: #7fa4bd;
+  font-weight: 700;
+}
+
+.summary-name {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.summary-desc {
+  font-size: 0.68rem;
+  color: #6088a2;
+}
+
+/* ==========================================================================
+   4. RIGHT MATH QUIZ CARD (PARCHMENT WARM THEME)
+   ========================================================================== */
+.math-quiz-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(145deg, #f7eed7 0%, #ebdcb4 100%);
+  border: 3px solid #d4be95;
+  border-radius: 20px;
+  padding: 22px 24px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+  position: relative;
+  color: var(--parchment-text);
+  overflow-y: auto;
+}
+
+.quiz-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.category-badge {
+  background: #4a2f14;
+  color: #ffeed8;
+  font-weight: 800;
+  font-size: 0.82rem;
+  padding: 5px 14px;
+  border-radius: 16px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.combo-badge {
+  background: linear-gradient(135deg, #ff7a18 0%, #e04b00 100%);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.82rem;
+  padding: 5px 14px;
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(224, 75, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.combo-badge.streak {
+  animation: fireGlow 1s infinite alternate;
+}
+
+.quiz-turn-info {
+  font-size: 0.85rem;
+  color: #684a28;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.quiz-question-title {
+  font-size: 1.45rem;
+  font-weight: 900;
+  line-height: 1.35;
+  color: #241508;
+  margin-bottom: 8px;
+  word-break: keep-all;
+}
+
+.quiz-instruction {
+  font-size: 0.88rem;
+  color: #725332;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* 4 CHOICES (2x2 GRID AS IN SCREENSHOT) */
+.quiz-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.quiz-option-btn {
+  background: #ffffff;
+  border: 1.5px solid #d9c49e;
+  border-radius: 14px;
+  padding: 16px 14px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #382413;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(90, 60, 25, 0.08);
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  word-break: keep-all;
+}
+
+.quiz-option-btn:hover {
+  background: #fffdf8;
+  border-color: #ba8c53;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(90, 60, 25, 0.15);
+}
+
+.quiz-option-btn:active {
+  transform: translateY(0);
+}
+
+.quiz-option-btn.correct {
+  background: #e8f8f0 !important;
+  border-color: #2ecc71 !important;
+  color: #1e7e44 !important;
+  box-shadow: 0 0 12px rgba(46, 204, 113, 0.4);
+}
+
+.quiz-option-btn.wrong {
+  background: #fdeeee !important;
+  border-color: #e74c3c !important;
+  color: #962d22 !important;
+}
+
+.quiz-option-btn:disabled {
+  cursor: default;
+}
+
+/* QUIZ ACTION FOOTER */
+.quiz-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.status-feedback-box {
+  flex: 1;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #8c5720;
+  margin-right: 12px;
+  line-height: 1.4;
+}
+
+.status-feedback-box.ready-to-fire {
+  color: #1b7a43;
+  font-size: 0.95rem;
+  animation: pulseGreen 1.2s infinite alternate;
+}
+
+.hint-btn {
+  background: #edd9b4;
+  border: 1.5px solid #c9b086;
+  color: #573b1d;
+  font-size: 0.9rem;
+  font-weight: 800;
+  padding: 9px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+
+.hint-btn:hover {
+  background: #e2c89b;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   5. CANNONBALL FLYING PROJECTILE OVERLAY
+   ========================================================================== */
+#projectile-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* ==========================================================================
+   6. MODAL DIALOGS (HINT / VICTORY / DEFEAT / STAGE TRANSITION)
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(4, 12, 19, 0.85);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pirate-modal-card {
+  background: linear-gradient(145deg, #f7eed7 0%, #ebdcb4 100%);
+  border: 3px solid #d4be95;
+  border-radius: 20px;
+  padding: 28px 32px;
+  max-width: 520px;
+  width: 90%;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7);
+  color: #2c1b0c;
+  transform: scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.modal-overlay.show .pirate-modal-card {
+  transform: scale(1);
+}
+
+.modal-title {
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #3b2209;
+}
+
+.modal-body {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #442a12;
+  margin-bottom: 22px;
+}
+
+.modal-close-btn {
+  background: #5b3917;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(91, 57, 23, 0.3);
+  transition: all 0.2s;
+  display: block;
+  margin-left: auto;
+}
+
+.modal-close-btn:hover {
+  background: #73491f;
+  transform: translateY(-2px);
+}
+
+/* Floating Toast Message at bottom center */
+#toast-banner {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(10, 31, 48, 0.96);
+  border: 2px solid var(--accent-gold);
+  border-radius: 30px;
+  padding: 10px 26px;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.95rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65), 0 0 12px rgba(255, 190, 59, 0.3);
+  z-index: 150;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#toast-banner.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Keyframes */
+@keyframes hitPulse {
+  0% { transform: scale(1); filter: brightness(1); }
+  100% { transform: scale(1.04); filter: brightness(1.3); }
+}
+
+@keyframes fireGlow {
+  0% { box-shadow: 0 2px 6px rgba(224, 75, 0, 0.4); }
+  100% { box-shadow: 0 0 14px rgba(255, 122, 24, 0.8); }
+}
+
+@keyframes pulseGreen {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.02); }
+}
+
+@keyframes cellGlow {
+  0% { border-color: #1e5272; }
+  100% { border-color: #4da3d4; box-shadow: inset 0 0 6px rgba(77, 163, 212, 0.3); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  #battle-arena {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .fleet-battle-panel, .math-quiz-panel {
+    flex: none;
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   7. SHIP PLACEMENT MODE STYLES
+   ========================================================================== */
+.hidden {
+  display: none !important;
+}
+
+.placement-progress-badge {
+  background: #173827;
+  color: #88edb5;
+  border: 1px solid #2ecc71;
+  font-weight: 800;
+  font-size: 0.82rem;
+  padding: 5px 14px;
+  border-radius: 16px;
+}
+
+.placement-panel {
+  padding: 14px 18px !important;
+}
+
+.placement-panel .quiz-turn-info {
+  margin-bottom: 4px;
+}
+
+.placement-panel .quiz-question-title {
+  margin-bottom: 4px;
+  font-size: 1.22rem !important;
+}
+
+.placement-panel .quiz-instruction {
+  margin-bottom: 8px;
+  font-size: 0.82rem;
+}
+
+.placement-ships-tray {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.ship-tray-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #ffffff;
+  border: 2px solid #d9c49e;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.ship-tray-card:hover {
+  border-color: #ba8c53;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(90, 60, 25, 0.12);
+}
+
+.ship-tray-card.selected {
+  border-color: #b87514;
+  background: #fff8eb;
+  box-shadow: 0 0 10px rgba(224, 138, 20, 0.35);
+  transform: scale(1.01);
+}
+
+.ship-tray-card.placed {
+  background: #eef8f2;
+  border-color: #27ae60;
+  opacity: 0.9;
+}
+
+.ship-tray-card.placed:hover {
+  transform: none;
+}
+
+.ship-card-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ship-card-icon {
+  font-size: 1.25rem;
+}
+
+.ship-card-title {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #382413;
+}
+
+.ship-card-cells {
+  display: flex;
+  gap: 3px;
+  margin-top: 2px;
+}
+
+.ship-cell-dot {
+  width: 12px;
+  height: 12px;
+  background: #7c4820;
+  border: 1px solid #4a2810;
+  border-radius: 2px;
+}
+
+.ship-card-status {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #7a5e3f;
+}
+
+.ship-tray-card.placed .ship-card-status {
+  color: #27ae60;
+}
+
+.placement-controls-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.placement-action-btn {
+  flex: 1;
+  background: #5b3917;
+  color: #fff;
+  border: none;
+  border-radius: 9px;
+  padding: 8px 6px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.placement-action-btn:hover {
+  background: #73491f;
+  transform: translateY(-1px);
+}
+
+.placement-hint-box {
+  background: rgba(90, 50, 15, 0.08);
+  border: 1px dashed #c9b086;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.76rem;
+  color: #6a4925;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.kbd-tag {
+  background: #fff;
+  border: 1px solid #bba078;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-weight: 800;
+  color: #382413;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.placement-footer {
+  margin-top: auto;
+}
+
+.ready-battle-btn {
+  width: 100%;
+  background: #888888;
+  color: #eee;
+  border: none;
+  border-radius: 12px;
+  padding: 11px 14px;
+  font-size: 1.02rem;
+  font-weight: 900;
+  cursor: not-allowed;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.ready-battle-btn:not(:disabled) {
+  background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(211, 84, 0, 0.45);
+  animation: pulseGold 1.5s infinite alternate;
+}
+
+.ready-battle-btn:not(:disabled):hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+/* GHOST PLACEMENT PREVIEW ON PLAYER BOARD */
+.sea-cell.ghost-valid {
+  background: rgba(46, 204, 113, 0.45) !important;
+  border-color: #2ecc71 !important;
+  box-shadow: inset 0 0 8px rgba(46, 204, 113, 0.8);
+  cursor: pointer !important;
+}
+
+.sea-cell.ghost-invalid {
+  background: rgba(231, 76, 60, 0.5) !important;
+  border-color: #e74c3c !important;
+  box-shadow: inset 0 0 8px rgba(231, 76, 60, 0.8);
+  cursor: not-allowed !important;
+}
+
+@keyframes pulseGold {
+  0% { transform: scale(1); box-shadow: 0 6px 18px rgba(211, 84, 0, 0.45); }
+  100% { transform: scale(1.02); box-shadow: 0 8px 24px rgba(243, 156, 18, 0.7); }
+}

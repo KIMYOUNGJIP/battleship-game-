@@ -3,180 +3,232 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>배틀쉽 전술 해전 (Battleship Tactical) - 1v1 해전 게임</title>
+  <title>Pirate Math Battleship RPG - 5학년 2학기 수학 1단원</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Pretendard:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Pretendard:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/pirate.css">
 </head>
 <body>
-  <!-- Tactical 2D Viewport Canvas Container -->
-  <div id="canvas-container"></div>
-  <div class="overlay-vignette"></div>
-
-  <!-- Toast Announcements -->
-  <div id="toast-container"></div>
-
-  <!-- Top Navigation & Status Bar -->
-  <header id="top-bar" class="hud-panel">
-    <div class="logo-area">
-      <span class="logo-icon">⚓</span>
-      <h1 class="logo-title">BATTLESHIP <span>TACTICAL</span></h1>
-    </div>
-
-    <!-- Turn status during battle -->
-    <div id="turn-indicator" class="turn-badge your-turn hidden">
-      <div class="turn-dot"></div>
-      <span id="turn-text">당신의 차례 (YOUR TURN)</span>
-    </div>
-
-    <div class="top-controls">
-      <button id="btn-sound" class="btn-icon" title="소리 켜기/끄기">🔊</button>
-      <button id="btn-menu" class="btn-icon" title="메인 메뉴">⚙️</button>
-    </div>
-  </header>
-
-  <!-- Battle Fleet Status Cards (Shown during battle) -->
-  <div id="battle-fleets" class="hidden">
-    <!-- Friendly Fleet -->
-    <div class="fleet-card hud-panel">
-      <div class="fleet-card-header">
-        <span style="color: var(--cyan-glow);">🔵 내 함대 상태</span>
-        <span id="friendly-alive-count">5 / 5 생존</span>
+  <div id="app-container">
+    <!-- 1. TOP GLOBAL NAVIGATION BAR -->
+    <header id="top-bar">
+      <div class="brand-section">
+        <div class="helm-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.2"/>
+            <circle cx="12" cy="12" r="3" fill="currentColor"/>
+            <line x1="12" y1="1" x2="12" y2="23" stroke="currentColor" stroke-width="2"/>
+            <line x1="1" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/>
+            <line x1="4.2" y1="4.2" x2="19.8" y2="19.8" stroke="currentColor" stroke-width="2"/>
+            <line x1="4.2" y1="19.8" x2="19.8" y2="4.2" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="title-group">
+          <h1 class="game-title">Pirate Math Battleship RPG</h1>
+          <span class="game-subtitle">Lesson 1 · 수의 범위와 어림하기 (이상, 이하, 초과, 미만, 올림, 버림, 반올림)</span>
+        </div>
       </div>
-      <div id="friendly-ship-list" class="ship-list">
-        <!-- Generated dynamically -->
+
+      <div class="top-stats">
+        <div class="stat-pill" id="coins-count">💰 0</div>
+        <div class="stat-pill" id="stars-count">⭐ 0</div>
+        <div class="turn-pill" id="turn-badge">학생 차례</div>
+        <div class="user-badge" title="학생 프로필">
+          <span style="font-size: 1.4rem;">🧑‍🎓</span>
+        </div>
+        <button class="btn-icon-top" id="btn-fullscreen" title="전체화면">⛶</button>
       </div>
-    </div>
+    </header>
 
-    <!-- Enemy Fleet -->
-    <div class="fleet-card hud-panel">
-      <div class="fleet-card-header">
-        <span style="color: var(--red-glow);">🔴 적 함대 상태</span>
-        <span id="enemy-alive-count">5 / 5 생존</span>
+    <!-- 2. STAGE PROGRESSION BAR (4 STAGES) -->
+    <section id="stage-bar-container">
+      <div class="stages-grid">
+        <div class="stage-tab active" data-stage="0">
+          <span class="stage-num">1</span> ⚓ 항구 외곽
+        </div>
+        <div class="stage-tab" data-stage="1">
+          <span class="stage-num">2</span> 🪸 산호 해협
+        </div>
+        <div class="stage-tab" data-stage="2">
+          <span class="stage-num">3</span> 🌩️ 폭풍 해역
+        </div>
+        <div class="stage-tab" data-stage="3">
+          <span class="stage-num">4</span> 💀 검은 해골 요새
+        </div>
       </div>
-      <div id="enemy-ship-list" class="ship-list">
-        <!-- Generated dynamically -->
+      <div class="stage-hint-text">
+        진행도 표시예요. 적 함선을 1척 침몰할 때마다 다음 해역으로 이동합니다.
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- Ship Placement Bottom Bar -->
-  <div id="placement-bar" class="hud-panel hidden">
-    <div class="placement-ships" id="placement-ship-buttons">
-      <!-- Generated dynamically -->
-    </div>
-
-    <div class="rotate-hint">
-      회전: <span class="kbd-badge">R</span> 또는 <span class="kbd-badge">우클릭</span>
-    </div>
-
-    <button id="btn-rotate" class="action-btn secondary" title="회전 변경">🔄 회전 (가로)</button>
-    <button id="btn-random-place" class="action-btn secondary">🎲 자동 배치</button>
-    <button id="btn-reset-place" class="action-btn secondary">초기화</button>
-    <button id="btn-ready-battle" class="action-btn ready-btn" disabled>전투 시작 (Ready)</button>
-  </div>
-
-  <!-- Camera Presets (Bottom Left) -->
-  <div id="camera-presets">
-    <button id="btn-cam-overview" class="btn-icon" title="전체 뷰">🌐</button>
-    <button id="btn-cam-target" class="btn-icon" title="적 해역 포격 뷰">🎯</button>
-    <button id="btn-cam-fleet" class="btn-icon" title="내 함대 뷰">🛡️</button>
-  </div>
-
-  <!-- In-game Emoji Reactions (Bottom Right) -->
-  <div id="chat-bar" class="hidden">
-    <button class="emoji-btn" data-emoji="🎯">🎯</button>
-    <button class="emoji-btn" data-emoji="💥">💥</button>
-    <button class="emoji-btn" data-emoji="🌊">🌊</button>
-    <button class="emoji-btn" data-emoji="😱">😱</button>
-    <button class="emoji-btn" data-emoji="👏">👏</button>
-  </div>
-
-  <!-- MODAL: Main Mode Selection -->
-  <div id="modal-menu" class="modal-backdrop">
-    <div class="modal-content hud-panel">
-      <h2 class="modal-title">BATTLESHIP TACTICAL</h2>
-      <p class="modal-subtitle">실감나는 해군 전술 작전 지휘소에 오신 것을 환영합니다.<br>대결 모드를 선택하세요.</p>
-
-      <div class="menu-options">
-        <button id="btn-mode-ai" class="menu-card-btn">
-          <span class="menu-card-icon">🤖</span>
-          <div class="menu-card-text">
-            <h4>컴퓨터 1:1 대전 (vs AI)</h4>
-            <p>스마트 표적 탐색 알고리즘을 갖춘 AI와 싱글 플레이</p>
+    <!-- 3. MAIN BATTLE ARENA -->
+    <main id="battle-arena">
+      <!-- Left: Fleet Battle Panel (Grids & VS Info) -->
+      <section class="fleet-battle-panel">
+        <!-- VS Fleet Header -->
+        <div class="fleet-vs-bar">
+          <div class="fleet-player-card">
+            <div class="avatar-wrapper">🧑‍✈️</div>
+            <div class="fleet-details">
+              <span class="fleet-tag">OUR FLEET</span>
+              <span class="fleet-name">Student Pirate Fleet</span>
+              <div class="hp-bar-outer">
+                <div class="hp-bar-inner player-hp" id="player-hp-fill" style="width: 100%;"></div>
+              </div>
+            </div>
           </div>
-        </button>
 
-        <button id="btn-mode-online" class="menu-card-btn">
-          <span class="menu-card-icon">🌐</span>
-          <div class="menu-card-text">
-            <h4>온라인 1:1 실시간 대전</h4>
-            <p>방 코드를 만들어 친구 또는 다른 플레이어와 실시간 대전</p>
+          <div class="vs-badge">VS</div>
+
+          <div class="fleet-player-card enemy">
+            <div class="avatar-wrapper enemy-avatar">🏴‍☠️</div>
+            <div class="fleet-details">
+              <span class="fleet-tag">ENEMY</span>
+              <span class="fleet-name">Black Tense Pirates</span>
+              <div class="hp-bar-outer">
+                <div class="hp-bar-inner enemy-hp" id="enemy-hp-fill" style="width: 100%;"></div>
+              </div>
+            </div>
           </div>
-        </button>
+        </div>
+
+        <!-- Dual Grids -->
+        <div class="grids-dual-container">
+          <!-- Our Waters -->
+          <div class="grid-board-box">
+            <div class="board-header">
+              <span class="board-title">우리 해역</span>
+              <span class="board-desc">우리 함선은 보입니다</span>
+            </div>
+            <div class="sea-grid-8x8" id="player-grid"></div>
+          </div>
+
+          <!-- Enemy Waters -->
+          <div class="grid-board-box">
+            <div class="board-header">
+              <span class="board-title">적 해역</span>
+              <span class="board-desc">적 함선 4척 · 12칸 배치 완료</span>
+            </div>
+            <div class="sea-grid-8x8 enemy-grid" id="enemy-grid"></div>
+          </div>
+        </div>
+
+        <!-- Bottom Fleet Summary Cards -->
+        <div class="fleet-bottom-cards">
+          <div class="fleet-summary-card">
+            <div class="summary-avatar">🧑‍🎓</div>
+            <div class="summary-info">
+              <span class="summary-team">학생 팀</span>
+              <span class="summary-name">⚓ 우리 함대</span>
+              <span class="summary-desc" id="player-hp-text">HP 12/12 · 수학 문제를 풀고 대포를 발사하세요!</span>
+            </div>
+          </div>
+
+          <div class="fleet-summary-card">
+            <div class="summary-avatar">🏴‍☠️</div>
+            <div class="summary-info">
+              <span class="summary-team">컴퓨터 해적단</span>
+              <span class="summary-name">💀 검은 해적선</span>
+              <span class="summary-desc" id="enemy-hp-text">HP 12/12 · 함정과 반격에 주의하세요</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right: Ship Placement Panel (Shown at start before battle) -->
+      <section class="math-quiz-panel placement-panel" id="placement-panel">
+        <div class="quiz-header-bar">
+          <div class="category-badge" style="background:#244933; color:#bcf5d6;">출격 준비</div>
+          <div class="placement-progress-badge" id="placement-progress-text">함선 0/4 배치</div>
+        </div>
+
+        <div class="quiz-turn-info">⚓ 아군 함대 초기 세팅</div>
+        <h2 class="quiz-question-title" style="font-size: 1.35rem;">우리 해역에 해적선 4척을 배치하세요</h2>
+        <p class="quiz-instruction">함선을 선택하고 우리 해역(좌측 그리드)의 원하는 위치를 클릭하세요.</p>
+
+        <!-- Ship Selection Tray -->
+        <div class="placement-ships-tray" id="placement-ship-tray">
+          <!-- Ship buttons generated dynamically -->
+        </div>
+
+        <!-- Controls: Rotation, Auto Place, Reset -->
+        <div class="placement-controls-row">
+          <button class="placement-action-btn" id="btn-rotate-ship" title="함선 방향 회전 (단축키 R)">
+            🔄 방향: <span id="orientation-label" style="color:#ffd152; font-weight:900;">가로 (H)</span>
+          </button>
+          <button class="placement-action-btn" id="btn-random-placement" title="원클릭 무작위 배치">
+            🎲 자동 배치
+          </button>
+          <button class="placement-action-btn" id="btn-reset-placement" title="모든 함선 배치 취소">
+            초기화
+          </button>
+        </div>
+
+        <div class="placement-hint-box">
+          💡 단축키: <span class="kbd-tag">R</span> 키 또는 마우스 <span class="kbd-tag">우클릭</span>으로 90도 회전
+        </div>
+
+        <!-- Start Battle Ready Button -->
+        <div class="placement-footer">
+          <button class="ready-battle-btn" id="btn-start-battle" disabled>
+            ⚔️ 함대 출격! 전투 시작
+          </button>
+        </div>
+      </section>
+
+      <!-- Right: Math Quiz Panel (Parchment Card, Hidden during placement) -->
+      <section class="math-quiz-panel hidden" id="math-quiz-panel">
+        <div class="quiz-header-bar">
+          <div class="category-badge" id="quiz-category">수학 퀴즈</div>
+          <div class="combo-badge" id="combo-badge">
+            <span id="combo-text">🔥 COMBO 0</span>
+          </div>
+        </div>
+
+        <div class="quiz-turn-info">현재 턴: 학생 팀</div>
+        <h2 class="quiz-question-title" id="quiz-question">로딩 중...</h2>
+        <p class="quiz-instruction">정답을 골라 대포를 장전하세요.</p>
+
+        <!-- 4 Options in 2x2 Grid -->
+        <div class="quiz-options-grid" id="quiz-options">
+          <!-- Buttons rendered dynamically -->
+        </div>
+
+        <!-- Quiz Footer with Status and Hint -->
+        <div class="quiz-footer">
+          <div class="status-feedback-box" id="status-feedback">
+            문제를 맞히면 대포 발사 권한을 획득합니다!
+          </div>
+          <button class="hint-btn" id="btn-hint">
+            <span>💡</span> 힌트
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Cannonball Flying Projectile Canvas Overlay -->
+  <canvas id="projectile-canvas"></canvas>
+
+  <!-- Floating Toast Notification Banner -->
+  <div id="toast-banner">⚓ 해적 배틀쉽에 오신 것을 환영합니다!</div>
+
+  <!-- Hint & Game Over Modal -->
+  <div class="modal-overlay" id="hint-modal">
+    <div class="pirate-modal-card">
+      <div class="modal-title">
+        <span>📜</span>
+        <span id="modal-title-text">해적 나침반 힌트</span>
       </div>
+      <div class="modal-body" id="hint-modal-body">
+        힌트 내용
+      </div>
+      <button class="modal-close-btn" id="btn-modal-close">확인 완료</button>
     </div>
   </div>
 
-  <!-- MODAL: Online Multiplayer Room Setup -->
-  <div id="modal-online" class="modal-backdrop hidden">
-    <div class="modal-content hud-panel">
-      <h2 class="modal-title">온라인 1:1 대전</h2>
-      <p class="modal-subtitle">방을 새로 개설하거나 생성된 방 코드를 입력하여 참가하세요.</p>
-
-      <!-- Subview 1: Choice (Create vs Join) -->
-      <div id="online-choice-view" class="menu-options">
-        <button id="btn-create-room" class="action-btn">방 만들기 (Create Room)</button>
-        <div style="display: flex; gap: 8px; margin-top: 10px;">
-          <input type="text" id="input-room-code" class="input-code" placeholder="방 코드 (5자리)" maxlength="5">
-          <button id="btn-join-room" class="action-btn secondary">참가</button>
-        </div>
-        <button id="btn-online-back" class="action-btn secondary" style="margin-top: 8px;">뒤로 가기</button>
-      </div>
-
-      <!-- Subview 2: Waiting for Opponent -->
-      <div id="online-waiting-view" class="hidden" style="display: flex; flex-direction: column; gap: 16px;">
-        <div class="room-code-box">
-          <span style="font-size: 12px; color: var(--text-dim);">상대방에게 아래 방 코드를 공유하세요</span>
-          <span id="display-room-code" class="room-code-text">------</span>
-        </div>
-        <button id="btn-copy-link" class="action-btn secondary">📋 초대 링크 복사</button>
-        <p style="font-size: 13px; color: var(--amber-glow);">상대방 접속을 대기하는 중입니다...</p>
-        <button id="btn-cancel-waiting" class="action-btn secondary">취소</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: Game Over -->
-  <div id="modal-gameover" class="modal-backdrop hidden">
-    <div class="modal-content hud-panel">
-      <h2 id="gameover-title" class="gameover-banner win">VICTORY</h2>
-      <p id="gameover-desc" class="modal-subtitle">적의 모든 함선을 격침시켰습니다!</p>
-
-      <div class="stats-grid">
-        <div class="stat-item">
-          <span id="stat-shots" class="stat-val">0</span>
-          <span class="stat-lbl">총 발사수</span>
-        </div>
-        <div class="stat-item">
-          <span id="stat-hits" class="stat-val">0</span>
-          <span class="stat-lbl">명중수</span>
-        </div>
-        <div class="stat-item">
-          <span id="stat-acc" class="stat-val">0%</span>
-          <span class="stat-lbl">명중률</span>
-        </div>
-      </div>
-
-      <div style="display: flex; gap: 12px; justify-content: center; margin-top: 10px;">
-        <button id="btn-rematch" class="action-btn">다시 하기 (Rematch)</button>
-        <button id="btn-gameover-menu" class="action-btn secondary">메인 메뉴</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main Game Script -->
-  <script type="module" src="./js/app.js"></script>
+  <!-- Core Scripts -->
+  <script type="module" src="./js/pirate-game.js"></script>
 </body>
 </html>
