@@ -1,4 +1,5 @@
-// 초등학교 5학년 2학기 수학 1단원: 수의 범위와 어림하기 (이상, 이하, 초과, 미만, 올림, 버림, 반올림)
+// 초등학교 5학년 2학기 수학 4단원: 소수의 곱셈
+// [7차시] (소수)×(소수)를 알아볼까요(2) - 소수 두 자리 수인 경우 (수학 96~97쪽, 수익 64~65쪽)
 // 문제 은행 및 자동 생성 시스템
 
 export class MathQuizEngine {
@@ -8,353 +9,391 @@ export class MathQuizEngine {
     this.correctCount = 0;
     this.totalQuestions = 0;
 
-    // 수제 큐레이션된 스토리텔링 & 핵심 문제 풀
+    // 수제 큐레이션된 교과서, 수익, 활동지, 마피아 퀴즈 풀 (24문항)
     this.curatedPool = [
-      // 1. 이상 (>=)
+      // 1. 교과서 및 수업 PPT 마피아 퀴즈 문제
       {
         id: 'cur_1',
-        category: '이상',
-        question: '다음 중 "45 이상인 수"에 해당하는 것은 어느 것일까요?',
-        options: ['44', '44.9', '45', '39'],
-        correctIndex: 2,
-        hint: '💡 "이상"은 어떤 수와 같거나 큰 수이므로 기준이 되는 수도 포함됩니다!',
-        explanation: '45 이상인 수는 45와 같거나 큰 수이므로, 45가 포함됩니다.'
+        category: '소수의 곱셈',
+        question: '0.23 × 0.4의 계산 결과는 얼마일까요?',
+        options: ['0.092', '0.92', '9.2', '0.0092'],
+        correctIndex: 0,
+        hint: '💡 23 × 4 = 92입니다. 소수 두 자리와 소수 한 자리의 곱이므로 소수 셋째 자리 수가 됩니다!',
+        explanation: '0.23(소수 2자리) × 0.4(소수 1자리) = 23/100 × 4/10 = 92/1000 = 0.092입니다.'
       },
       {
         id: 'cur_2',
-        category: '이상',
-        question: '놀이공원에서 키가 130cm 이상인 사람만 롤러코스터를 탈 수 있습니다. 탈 수 있는 학생은?',
-        options: ['민호: 129cm', '지우: 130cm', '서연: 128.5cm', '유진: 125cm'],
-        correctIndex: 1,
-        hint: '💡 130cm 이상은 130cm와 같거나 더 큰 키를 의미합니다.',
-        explanation: '130cm 이상에는 130cm가 포함되므로 키가 딱 130cm인 지우는 탈 수 있습니다.'
+        category: '소수의 곱셈',
+        question: '0.32 × 1.3의 계산 결과는 얼마일까요?',
+        options: ['0.416', '4.16', '0.0416', '41.6'],
+        correctIndex: 0,
+        hint: '💡 32 × 13 = 416입니다. 소수점 아래 자릿수가 총 몇 개인지 세어보세요.',
+        explanation: '32 × 13 = 416이고, 소수 2자리와 소수 1자리의 곱이므로 소수 세 자리가 되어 0.416입니다.'
       },
-      // 2. 이하 (<=)
       {
         id: 'cur_3',
-        category: '이하',
-        question: '다음 중 "28 이하인 수"가 아닌 것은 어느 것일까요?',
-        options: ['28', '27', '21', '29'],
-        correctIndex: 3,
-        hint: '💡 "이하"는 어떤 수와 같거나 작은 수입니다. 28보다 큰 수를 찾아보세요!',
-        explanation: '29는 28보다 크므로 28 이하인 수에 포함되지 않습니다.'
+        category: '소수의 곱셈',
+        question: '4.03 × 1.2의 계산 결과로 알맞은 것은?',
+        options: ['4.836', '48.36', '0.4836', '4.832'],
+        correctIndex: 0,
+        hint: '💡 4.03은 약 4, 1.2는 약 1이므로 결과는 약 4 근처(4.836)가 됩니다.',
+        explanation: '403 × 12 = 4836에서 소수 두 자리와 소수 한 자리를 곱했으므로 소수 세 자리가 되어 4.836입니다.'
       },
       {
         id: 'cur_4',
-        category: '이하',
-        question: '몸무게가 40kg 이하인 학생들만 시소 타기 경기에 나갑니다. 출전할 수 없는 학생은?',
-        options: ['도윤: 38kg', '하은: 40kg', '시우: 39.5kg', '준우: 41kg'],
-        correctIndex: 3,
-        hint: '💡 40kg 이하는 40kg과 같거나 가벼워야 합니다.',
-        explanation: '준우(41kg)는 40kg을 넘으므로(초과) 출전할 수 없습니다.'
+        category: '소수의 곱셈',
+        question: '3.51 × 2.3의 계산 결과는 얼마일까요?',
+        options: ['8.073', '80.73', '0.8073', '7.073'],
+        correctIndex: 0,
+        hint: '💡 351 × 23 = 8073입니다. 소수점 아래 총 3자리가 되도록 점을 찍어보세요.',
+        explanation: '351 × 23 = 8073이므로, 1/100과 1/10을 곱한 1/1000이 되어 8.073입니다.'
       },
-      // 3. 초과 (>)
       {
         id: 'cur_5',
-        category: '초과',
-        question: '다음 중 "50 초과인 수"는 어느 것일까요?',
-        options: ['49', '50', '50.1', '35'],
-        correctIndex: 2,
-        hint: '💡 "초과"는 어떤 수보다 큰 수이며, 그 수는 포함되지 않습니다!',
-        explanation: '50 초과는 50보다 큰 수이므로 50은 들어가지 않고 50.1이 해당합니다.'
+        category: '끝자리 0 처리',
+        question: '0.92 × 3.5의 계산 결과로 알맞은 것은 어느 것일까요?',
+        options: ['3.22', '3.220', '32.2', '0.322'],
+        correctIndex: 0,
+        hint: '💡 92 × 35 = 3220입니다. 소수 세 자리(3.220)에서 맨 끝 0은 생략합니다!',
+        explanation: '92 × 35 = 3220이므로 소수 셋째 자리는 3.220이며, 소수점 아래 맨 끝 0을 생략하여 3.22로 씁니다.'
       },
       {
         id: 'cur_6',
-        category: '초과',
-        question: '어떤 터널은 통과 차량 높이가 3m를 초과하면 진입할 수 없습니다. 진입할 수 없는 차량의 높이는?',
-        options: ['2.8m', '2.9m', '3.0m', '3.2m'],
-        correctIndex: 3,
-        hint: '💡 3m 초과는 3m보다 큰 경우를 말합니다.',
-        explanation: '3.2m는 3m보다 크므로(초과) 진입할 수 없습니다.'
+        category: '소수의 곱셈',
+        question: '1.24 × 0.3의 계산 결과는 얼마일까요?',
+        options: ['0.372', '3.72', '0.0372', '37.2'],
+        correctIndex: 0,
+        hint: '💡 124 × 3 = 372입니다. 소수 2자리와 소수 1자리의 곱입니다.',
+        explanation: '124 × 3 = 372이고 1/100 × 1/10 = 1/1000이므로 0.372입니다.'
       },
-      // 4. 미만 (<)
       {
         id: 'cur_7',
-        category: '미만',
-        question: '다음 중 "16 미만인 수"에 속하지 않는 것은 어느 것일까요?',
-        options: ['12', '15', '16', '14.8'],
-        correctIndex: 2,
-        hint: '💡 "미만"은 어떤 수보다 작은 수이므로, 그 수는 포함되지 않습니다!',
-        explanation: '16 미만인 수에는 16이 포함되지 않습니다.'
+        category: '소수의 곱셈',
+        question: '6.27 × 0.2의 계산 결과는 얼마일까요?',
+        options: ['1.254', '12.54', '0.1254', '1.244'],
+        correctIndex: 0,
+        hint: '💡 627 × 2 = 1254입니다. 소수 세 자리 수가 되도록 점을 찍으세요.',
+        explanation: '627 × 2 = 1254에서 소수 둘째 자리와 소수 첫째 자리를 곱했으므로 1.254입니다.'
       },
       {
         id: 'cur_8',
-        category: '수의 범위',
-        question: '10 이상 15 미만인 자연수는 모두 몇 개일까요?',
-        options: ['4개', '5개', '6개', '7개'],
-        correctIndex: 1,
-        hint: '💡 10은 포함되고, 15는 포함되지 않습니다: 10, 11, 12, 13, 14',
-        explanation: '해당 자연수는 10, 11, 12, 13, 14로 총 5개입니다.'
+        category: '소수의 곱셈',
+        question: '2.17 × 1.3의 계산 결과는 얼마일까요?',
+        options: ['2.821', '28.21', '0.2821', '2.721'],
+        correctIndex: 0,
+        hint: '💡 217 × 13 = 2821입니다. 소수점 위치를 확인해 보세요.',
+        explanation: '217 × 13 = 2821이며, 소수 세 자리로 나타내면 2.821입니다.'
       },
       {
         id: 'cur_9',
-        category: '수의 범위',
-        question: '수직선에서 20에는 채운 동그라미(●), 25에는 빈 동그라미(○)가 그려져 있습니다. 이 범위를 바르게 나타낸 것은?',
-        options: ['20 이상 25 이하', '20 초과 25 미만', '20 이상 25 미만', '20 초과 25 이하'],
-        correctIndex: 2,
-        hint: '💡 채운 동그라미(●)는 이상/이하, 빈 동그라미(○)는 초과/미만입니다.',
-        explanation: '20은 포함되므로 "이상", 25는 미포함이므로 "미만"입니다. (20 이상 25 미만)'
+        category: '끝자리 0 처리',
+        question: '2.95 × 3.2의 계산 결과로 알맞은 것은?',
+        options: ['9.44', '9.440', '94.4', '0.944'],
+        correctIndex: 0,
+        hint: '💡 295 × 32 = 9440입니다. 소수 셋째 자리는 9.440이지만 끝의 0은 생략합니다.',
+        explanation: '295 × 32 = 9440이므로 소수 세 자리는 9.440이고, 끝자리 0을 지우면 9.44가 됩니다.'
       },
-      // 5. 올림
       {
         id: 'cur_10',
-        category: '올림',
-        question: '241을 "십의 자리까지 올림"하면 얼마일까요?',
-        options: ['240', '250', '300', '245'],
-        correctIndex: 1,
-        hint: '💡 십의 자리 아래의 수(일의 자리: 1)가 0이 아니므로 십의 자리를 1 올려줍니다.',
-        explanation: '일의 자리 수가 1이므로 올림하면 십의 자리가 4에서 5가 되어 250이 됩니다.'
+        category: '소수의 곱셈',
+        question: '4.5 × 2.21의 계산 결과는 얼마일까요?',
+        options: ['9.945', '99.45', '0.9945', '9.845'],
+        correctIndex: 0,
+        hint: '💡 45 × 221 = 9945입니다. 소수 한 자리와 소수 두 자리의 곱이므로 총 세 자리입니다.',
+        explanation: '45 × 221 = 9945이고, 소수 1자리와 2자리를 곱하면 소수 3자리가 되므로 9.945입니다.'
       },
+
+      // 2. 활동지 암호 해독 문제 풀
       {
         id: 'cur_11',
-        category: '올림',
-        question: '사탕 153개를 10개씩 묶음 상자에 모두 담으려면 상자가 최소 몇 개 필요할까요?',
-        options: ['15개', '16개', '17개', '150개'],
-        correctIndex: 1,
-        hint: '💡 남은 사탕 3개도 담아야 하므로 올림을 이용합니다!',
-        explanation: '15상자에 담고 남은 3개도 상자가 필요하므로 올림하여 16상자가 필요합니다.'
+        category: '활동지 암호문제',
+        question: '0.14 × 0.8의 계산 결과는 얼마일까요?',
+        options: ['0.112', '1.12', '0.0112', '11.2'],
+        correctIndex: 0,
+        hint: '💡 14 × 8 = 112입니다. 소수점 아래 두 자리와 한 자리를 더하면 세 자리가 됩니다.',
+        explanation: '14 × 8 = 112이므로 1/1000배를 하면 0.112가 됩니다.'
       },
       {
         id: 'cur_12',
-        category: '올림',
-        question: '4328을 "백의 자리까지 올림"한 수는 얼마일까요?',
-        options: ['4300', '4400', '4330', '5000'],
-        correctIndex: 1,
-        hint: '💡 백의 자리 아래(28)가 0이 아니므로 백의 자리(3)를 1 올려서 4400이 됩니다.',
-        explanation: '백의 자리 아래 수 28을 올려서 백의 자리를 4로 만들면 4400입니다.'
+        category: '소수의 곱셈',
+        question: '0.5 × 0.05의 계산 결과는 얼마일까요?',
+        options: ['0.025', '0.25', '0.0025', '2.5'],
+        correctIndex: 0,
+        hint: '💡 5 × 5 = 25입니다. 소수 한 자리와 소수 두 자리의 곱이므로 소수 세 자리가 되어야 합니다!',
+        explanation: '5/10 × 5/100 = 25/1000 = 0.025입니다.'
       },
-      // 6. 버림
       {
         id: 'cur_13',
-        category: '버림',
-        question: '576을 "십의 자리까지 버림"하면 얼마일까요?',
-        options: ['570', '580', '500', '560'],
+        category: '활동지 암호문제',
+        question: '2.3 × 1.41의 계산 결과는 얼마일까요?',
+        options: ['3.243', '32.43', '0.3243', '3.443'],
         correctIndex: 0,
-        hint: '💡 십의 자리 아래인 일의 자리(6)를 버리고 0으로 바꿉니다.',
-        explanation: '일의 자리 6을 0으로 버리면 570이 됩니다.'
+        hint: '💡 23 × 141 = 3243입니다. 1/10 × 1/100 = 1/1000이므로 소수 세 자리가 됩니다.',
+        explanation: '23 × 141 = 3243이므로 소수점을 세 자리 앞으로 옮기면 3.243입니다.'
       },
       {
         id: 'cur_14',
-        category: '버림',
-        question: '동전 14,850원을 은행에서 1,000원짜리 지폐로만 바꾼다면 최대 얼마까지 바꿀 수 있을까요?',
-        options: ['14,000원', '15,000원', '14,800원', '14,900원'],
+        category: '끝자리 0 처리',
+        question: '0.5 × 1.2의 계산 결과로 가장 알맞은 것은?',
+        options: ['0.6', '0.60', '6.0', '0.06'],
         correctIndex: 0,
-        hint: '💡 1,000원 미만의 금액(850원)은 지폐로 바꿀 수 없으므로 버림합니다.',
-        explanation: '천의 자리 아래(850원)를 버림하면 14,000원까지 바꿀 수 있습니다.'
+        hint: '💡 5 × 12 = 60입니다. 소수 두 자리는 0.60이지만 맨 끝 0은 생략합니다.',
+        explanation: '0.5 × 1.2 = 0.60이며, 소수점 아래 맨 끝의 0은 생략하여 0.6으로 나타냅니다.'
       },
       {
         id: 'cur_15',
-        category: '버림',
-        question: '8392를 "백의 자리까지 버림"한 값은?',
-        options: ['8300', '8400', '8390', '8000'],
+        category: '소수의 곱셈',
+        question: '8.4 × 0.1의 계산 결과는 얼마일까요?',
+        options: ['0.84', '8.4', '0.084', '84'],
         correctIndex: 0,
-        hint: '💡 백의 자리 아래인 92를 버려 00으로 만듭니다.',
-        explanation: '백의 자리 아래(92)를 버리면 8300이 됩니다.'
+        hint: '💡 0.1을 곱하면 소수점이 왼쪽으로 1칸 이동합니다.',
+        explanation: '8.4에 0.1(1/10)을 곱하면 소수점이 왼쪽으로 한 칸 이동하여 0.84가 됩니다.'
       },
-      // 7. 반올림
       {
         id: 'cur_16',
-        category: '반올림',
-        question: '456을 "십의 자리까지 반올림"하면 얼마일까요?',
-        options: ['450', '460', '500', '455'],
-        correctIndex: 1,
-        hint: '💡 구하려는 자리 바로 아래(일의 자리)가 6이므로 5 이상입니다. 올림을 합니다!',
-        explanation: '일의 자리 숫자가 6(5 이상)이므로 올림하여 460이 됩니다.'
+        category: '소수의 곱셈',
+        question: '0.7 × 0.31의 계산 결과는 얼마일까요?',
+        options: ['0.217', '2.17', '0.0217', '0.271'],
+        correctIndex: 0,
+        hint: '💡 7 × 31 = 217입니다. 소수 한 자리와 소수 두 자리를 곱하면 소수 세 자리가 됩니다.',
+        explanation: '7/10 × 31/100 = 217/1000 = 0.217입니다.'
       },
       {
         id: 'cur_17',
-        category: '반올림',
-        question: '7241을 "백의 자리까지 반올림"하면 얼마일까요?',
-        options: ['7200', '7300', '7240', '7000'],
+        category: '소수의 곱셈',
+        question: '9.1 × 2.9의 계산 결과는 얼마일까요?',
+        options: ['26.39', '2.639', '263.9', '27.39'],
         correctIndex: 0,
-        hint: '💡 백의 자리 바로 아래(십의 자리) 숫자가 4입니다. 4는 버림할까요, 올림할까요?',
-        explanation: '십의 자리 숫자가 4(4 이하)이므로 버림하여 7200이 됩니다.'
+        hint: '💡 91 × 29 = 2639입니다. 소수 한 자리끼리 곱하면 소수 두 자리 수가 됩니다.',
+        explanation: '91 × 29 = 2639에서 1/10 × 1/10 = 1/100이므로 26.39입니다.'
       },
       {
         id: 'cur_18',
-        category: '반올림',
-        question: '소수 첫째 자리에서 반올림하여 6이 되는 수가 아닌 것은?',
-        options: ['5.8', '6.3', '5.5', '6.6'],
-        correctIndex: 3,
-        hint: '💡 반올림하여 6이 되는 범위는 5.5 이상 6.5 미만입니다.',
-        explanation: '6.6을 소수 첫째 자리에서 반올림하면 7이 되므로 6이 되지 않습니다.'
+        category: '소수의 곱셈',
+        question: '3.9 × 3.1의 계산 결과는 얼마일까요?',
+        options: ['12.09', '120.9', '1.209', '11.09'],
+        correctIndex: 0,
+        hint: '💡 39 × 31 = 1209입니다. 약 4 × 3 = 12 정도가 되는지 어림해 보세요.',
+        explanation: '39 × 31 = 1209이고 소수 두 자리 수가 되므로 12.09입니다.'
       },
       {
         id: 'cur_19',
-        category: '반올림',
-        question: '3.74를 "소수 첫째 자리까지 반올림"하면 얼마일까요?',
-        options: ['3.7', '3.8', '4.0', '3.75'],
+        category: '소수의 곱셈',
+        question: '1.2 × 4.1의 계산 결과는 얼마일까요?',
+        options: ['4.92', '49.2', '0.492', '4.82'],
         correctIndex: 0,
-        hint: '💡 소수 둘째 자리의 숫자가 4이므로 버림합니다.',
-        explanation: '소수 둘째 자리의 숫자 4는 버림 대상이므로 3.7이 됩니다.'
+        hint: '💡 12 × 41 = 492입니다. 1/100배를 하면 소수점이 어디에 찍힐까요?',
+        explanation: '12 × 41 = 492에서 소수점 아래 두 자리 수가 되므로 4.92입니다.'
       },
+
+      // 3. 교과서 원리 & 소수점 위치 & 문장제
       {
         id: 'cur_20',
-        category: '수의 범위',
-        question: '체온이 37.5℃를 초과하면 발열로 봅니다. 발열 상태인 학생의 체온은?',
-        options: ['37.0℃', '37.5℃', '37.8℃', '36.8℃'],
-        correctIndex: 2,
-        hint: '💡 37.5℃ 초과는 37.5℃보다 높은 체온이어야 합니다!',
-        explanation: '37.8℃는 37.5℃보다 높으므로(초과) 발열 상태에 해당합니다.'
+        category: '자연수 곱셈 활용',
+        question: '141 × 23 = 3243을 이용하여 1.41 × 2.3의 값을 구하면?',
+        options: ['3.243', '32.43', '0.3243', '324.3'],
+        correctIndex: 0,
+        hint: '💡 1.41은 141의 1/100배, 2.3은 23의 1/10배이므로 전체 결과는 1/1000배가 됩니다.',
+        explanation: '141이 1/100배, 23이 1/10배 되었으므로 곱은 3243의 1/1000배인 3.243입니다.'
+      },
+      {
+        id: 'cur_21',
+        category: '소수점 위치 규칙',
+        question: '(소수 두 자리 수) × (소수 한 자리 수)의 곱은 소수점 아래가 몇 자리일까요? (끝자리가 0이 아닌 경우)',
+        options: ['소수 세 자리', '소수 두 자리', '소수 한 자리', '소수 네 자리'],
+        correctIndex: 0,
+        hint: '💡 곱하는 두 수의 소수점 아래 자리 수(2자리 + 1자리)를 더해보세요!',
+        explanation: '소수 두 자리 수(1/100)와 소수 한 자리 수(1/10)를 곱하면 1/1000이 되므로 소수 세 자리가 됩니다.'
+      },
+      {
+        id: 'cur_22',
+        category: '분수의 곱셈 변환',
+        question: '0.23 × 0.4를 분수의 곱셈으로 바르게 나타낸 식은 어느 것일까요?',
+        options: [
+          '23/100 × 4/10 = 92/1000',
+          '23/10 × 4/100 = 92/100',
+          '23/100 × 4/100 = 92/10000',
+          '23/10 × 4/10 = 92/100'
+        ],
+        correctIndex: 0,
+        hint: '💡 0.23은 23/100이고, 0.4는 4/10입니다.',
+        explanation: '0.23 = 23/100, 0.4 = 4/10이므로 23/100 × 4/10 = 92/1000 = 0.092입니다.'
+      },
+      {
+        id: 'cur_23',
+        category: '어림하기',
+        question: '5.02 × 1.9의 계산 결과를 어림하여 가장 알맞은 소수점 위치를 찾은 것은?',
+        options: ['9.538', '95.38', '0.9538', '953.8'],
+        correctIndex: 0,
+        hint: '💡 5.02는 약 5, 1.9는 약 2이므로 5 × 2 = 10 근처의 값을 찾으세요!',
+        explanation: '5.02 ≒ 5, 1.9 ≒ 2이므로 곱은 약 10 근처여야 합니다. 따라서 9.538이 올바른 값입니다.'
+      },
+      {
+        id: 'cur_24',
+        category: '실생활 문장제',
+        question: '해적선 깃발의 가로가 1.4m, 세로가 0.25m입니다. 이 깃발의 넓이는 몇 ㎡일까요?',
+        options: ['0.35 ㎡', '3.5 ㎡', '0.035 ㎡', '35 ㎡'],
+        correctIndex: 0,
+        hint: '💡 직사각형의 넓이 = 가로 × 세로입니다. 14 × 25 = 350을 계산해 보세요.',
+        explanation: '1.4 × 0.25 = 0.350 ㎡이며 끝자리 0을 생략하면 0.35 ㎡가 됩니다.'
       }
     ];
   }
 
-  // 동적 문제 생성기 (무한 플레이 가능)
+  // 동적 문제 생성기 (소수×소수 6가지 유형 무한 생성)
   generateDynamicQuestion() {
-    const types = ['이상', '이하', '초과', '미만', '올림', '버림', '반올림', '범위개수'];
+    const types = [
+      '소수두자리X한자리',
+      '소수한자리X두자리',
+      '자연수곱셈이용',
+      '소수점자릿수판별',
+      '끝자리0생략',
+      '직사각형넓이문장제'
+    ];
     const type = types[Math.floor(Math.random() * types.length)];
     const id = 'dyn_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
 
-    if (type === '이상') {
-      const base = (Math.floor(Math.random() * 8) + 2) * 10; // 20, 30, ... 90
-      const correct = base;
-      const wrong1 = base - 1;
-      const wrong2 = base - 2;
-      const wrong3 = base - 10;
-      const options = this.shuffle([String(correct), String(wrong1), String(wrong2), String(wrong3)]);
+    // 유형 1: (소수 두 자리) × (소수 한 자리) -> 소수 세 자리
+    if (type === '소수두자리X한자리') {
+      const aInt = Math.floor(Math.random() * 80) + 11; // 11 ~ 90 (끝자리가 0이 아니도록)
+      const bInt = Math.floor(Math.random() * 8) + 2;   // 2 ~ 9
+      const a = (aInt / 100).toFixed(2);
+      const b = (bInt / 10).toFixed(1);
+      const productInt = aInt * bInt;
+      const correctVal = (productInt / 1000).toFixed(3);
+
+      const wrong1 = (productInt / 100).toFixed(2);
+      const wrong2 = (productInt / 10000).toFixed(4);
+      const wrong3 = ((productInt + 10) / 1000).toFixed(3);
+
+      const options = this.shuffle([correctVal, wrong1, wrong2, wrong3]);
       return {
         id,
-        category: '이상',
-        question: `다음 중 "${base} 이상인 수"에 해당하는 것은?`,
+        category: '소수의 곱셈',
+        question: `${a} × ${b}의 계산 결과는 얼마일까요?`,
         options,
-        correctIndex: options.indexOf(String(correct)),
-        hint: `💡 "${base} 이상"은 ${base}와 같거나 큰 수입니다. 기준 수(${base})도 포함됩니다.`,
-        explanation: `${base} 이상인 수는 ${base}를 포함하여 그보다 큰 수이므로 ${correct}가 정답입니다.`
+        correctIndex: options.indexOf(correctVal),
+        hint: `💡 ${aInt} × ${bInt} = ${productInt}입니다. 소수 두 자리와 한 자리를 곱했으므로 소수 세 자리가 됩니다.`,
+        explanation: `${a} × ${b} = ${aInt}/100 × ${bInt}/10 = ${productInt}/1000 = ${correctVal}입니다.`
       };
     }
 
-    if (type === '이하') {
-      const base = (Math.floor(Math.random() * 7) + 3) * 10 + 5; // 35, 45...
-      const correct = base;
-      const wrong1 = base + 1;
-      const wrong2 = base + 5;
-      const wrong3 = base + 10;
-      const options = this.shuffle([String(correct), String(wrong1), String(wrong2), String(wrong3)]);
+    // 유형 2: (소수 한 자리) × (소수 두 자리) -> 소수 세 자리
+    if (type === '소수한자리X두자리') {
+      const aInt = Math.floor(Math.random() * 8) + 2;   // 2 ~ 9
+      const bInt = Math.floor(Math.random() * 80) + 11; // 11 ~ 90
+      const a = (aInt / 10).toFixed(1);
+      const b = (bInt / 100).toFixed(2);
+      const productInt = aInt * bInt;
+      const correctVal = (productInt / 1000).toFixed(3);
+
+      const wrong1 = (productInt / 100).toFixed(2);
+      const wrong2 = (productInt / 10).toFixed(1);
+      const wrong3 = (productInt / 10000).toFixed(4);
+
+      const options = this.shuffle([correctVal, wrong1, wrong2, wrong3]);
       return {
         id,
-        category: '이하',
-        question: `다음 중 "${base} 이하인 수"에 해당하는 것은?`,
+        category: '소수의 곱셈',
+        question: `${a} × ${b}의 계산 결과는 얼마일까요?`,
         options,
-        correctIndex: options.indexOf(String(correct)),
-        hint: `💡 "${base} 이하"는 ${base}와 같거나 작은 수입니다. 기준 수(${base})도 포함됩니다.`,
-        explanation: `${base} 이하인 수는 ${base}와 같거나 작으므로 ${correct}가 정답입니다.`
+        correctIndex: options.indexOf(correctVal),
+        hint: `💡 ${aInt} × ${bInt} = ${productInt}입니다. 소수점 아래 총 자릿수를 확인하세요!`,
+        explanation: `${a} × ${b} = ${aInt}/10 × ${bInt}/100 = ${productInt}/1000 = ${correctVal}입니다.`
       };
     }
 
-    if (type === '초과') {
-      const base = Math.floor(Math.random() * 40) + 20;
-      const correct = base + 2;
-      const wrong1 = base; // 함정 (포함 안 됨)
-      const wrong2 = base - 1;
-      const wrong3 = base - 5;
-      const options = this.shuffle([String(correct), String(wrong1), String(wrong2), String(wrong3)]);
+    // 유형 3: 자연수 곱셈 관계를 이용한 소수점 위치 찾기
+    if (type === '자연수곱셈이용') {
+      const x = Math.floor(Math.random() * 80) + 12; // 12 ~ 91
+      const y = Math.floor(Math.random() * 8) + 3;   // 3 ~ 10
+      const prod = x * y;
+      const a = (x / 100).toFixed(2);
+      const b = (y / 10).toFixed(1);
+      const correctVal = (prod / 1000).toFixed(3);
+
+      const wrong1 = (prod / 100).toFixed(2);
+      const wrong2 = (prod / 10).toFixed(1);
+      const wrong3 = (prod / 10000).toFixed(4);
+
+      const options = this.shuffle([correctVal, wrong1, wrong2, wrong3]);
       return {
         id,
-        category: '초과',
-        question: `다음 중 "${base} 초과인 수"는 어느 것일까요?`,
+        category: '자연수 곱셈 활용',
+        question: `${x} × ${y} = ${prod}일 때, ${a} × ${b}의 값은?`,
         options,
-        correctIndex: options.indexOf(String(correct)),
-        hint: `💡 "${base} 초과"는 ${base}보다 큰 수이며, ${base}는 포함되지 않습니다!`,
-        explanation: `${base} 초과는 ${base}보다 커야 하므로 ${base}는 포함되지 않고 ${correct}가 정답입니다.`
+        correctIndex: options.indexOf(correctVal),
+        hint: `💡 ${a}은 ${x}의 1/100배, ${b}는 ${y}의 1/10배이므로 결과는 1/1000배가 됩니다.`,
+        explanation: `${x} × ${y} = ${prod}에서 1/100 × 1/10 = 1/1000배이므로 ${correctVal}입니다.`
       };
     }
 
-    if (type === '미만') {
-      const base = Math.floor(Math.random() * 40) + 30;
-      const correct = base - 3;
-      const wrong1 = base; // 함정
-      const wrong2 = base + 1;
-      const wrong3 = base + 7;
-      const options = this.shuffle([String(correct), String(wrong1), String(wrong2), String(wrong3)]);
+    // 유형 4: 소수점 자릿수 판별
+    if (type === '소수점자릿수판별') {
+      const qTypes = [
+        { desc: '소수 두 자리 수와 소수 한 자리 수', digits: 3, answer: '소수 셋째 자리' },
+        { desc: '소수 두 자리 수와 소수 두 자리 수', digits: 4, answer: '소수 넷째 자리' },
+        { desc: '소수 한 자리 수와 소수 두 자리 수', digits: 3, answer: '소수 셋째 자리' }
+      ];
+      const item = qTypes[Math.floor(Math.random() * qTypes.length)];
+      const correctVal = item.answer;
+      const options = this.shuffle(['소수 셋째 자리', '소수 둘째 자리', '소수 첫째 자리', '소수 넷째 자리']);
       return {
         id,
-        category: '미만',
-        question: `다음 중 "${base} 미만인 수"는 어느 것일까요?`,
+        category: '소수점 위치 규칙',
+        question: `끝자리가 0이 아닐 때, ${item.desc}를 곱하면 그 결과는 소수 몇째 자리 수일까요?`,
         options,
-        correctIndex: options.indexOf(String(correct)),
-        hint: `💡 "${base} 미만"은 ${base}보다 작은 수이며, ${base}는 포함되지 않습니다!`,
-        explanation: `${base} 미만은 ${base}보다 작아야 하므로 ${correct}가 정답입니다.`
+        correctIndex: options.indexOf(correctVal),
+        hint: '💡 곱하는 두 수의 소수점 아래 자리 수를 서로 더해보세요!',
+        explanation: `${item.desc}를 곱하면 소수점 아래 자릿수의 합이 되므로 ${correctVal} 수가 됩니다.`
       };
     }
 
-    if (type === '올림') {
-      const hundreds = Math.floor(Math.random() * 8) + 1;
-      const tens = Math.floor(Math.random() * 8) + 1;
-      const ones = Math.floor(Math.random() * 8) + 1;
-      const num = hundreds * 100 + tens * 10 + ones;
-      const correct = hundreds * 100 + (tens + 1) * 10;
-      const wrong1 = hundreds * 100 + tens * 10;
-      const wrong2 = (hundreds + 1) * 100;
-      const wrong3 = correct + 5;
-      const options = this.shuffle([String(correct), String(wrong1), String(wrong2), String(wrong3)]);
+    // 유형 5: 끝자리 0이 생략되는 경우 (예: 0.5 × 1.2 = 0.6)
+    if (type === '끝자리0생략') {
+      const pairs = [
+        { a: 0.5, b: 0.4, full: '0.20', clean: '0.2' },
+        { a: 0.5, b: 1.2, full: '0.60', clean: '0.6' },
+        { a: 0.25, b: 0.4, full: '0.100', clean: '0.1' },
+        { a: 1.5, b: 0.2, full: '0.30', clean: '0.3' },
+        { a: 0.35, b: 0.2, full: '0.070', clean: '0.07' }
+      ];
+      const item = pairs[Math.floor(Math.random() * pairs.length)];
+      const correctVal = item.clean;
+      const wrong1 = item.full;
+      const wrong2 = (parseFloat(item.clean) * 10).toString();
+      const wrong3 = (parseFloat(item.clean) / 10).toString();
+
+      const options = this.shuffle([correctVal, wrong1, wrong2, wrong3]);
       return {
         id,
-        category: '올림',
-        question: `${num}을 "십의 자리까지 올림"한 값은?`,
+        category: '끝자리 0 처리',
+        question: `${item.a} × ${item.b}의 결과를 끝자리 0을 생략하여 바르게 나타낸 것은?`,
         options,
-        correctIndex: options.indexOf(String(correct)),
-        hint: `💡 십의 자리 아래 일의 자리 숫자(${ones})가 0이 아니므로 올려서 십의 자리가 1 늘어납니다.`,
-        explanation: `${num}의 일의 자리 ${ones}를 올려 십의 자리까지 나타내면 ${correct}입니다.`
+        correctIndex: options.indexOf(correctVal),
+        hint: '💡 소수점 아래 맨 끝에 있는 0은 생략하여 간단히 나타냅니다!',
+        explanation: `${item.a} × ${item.b} = ${item.full}이지만, 맨 끝의 0은 생략하므로 ${correctVal}로 씁니다.`
       };
     }
 
-    if (type === '버림') {
-      const hundreds = Math.floor(Math.random() * 8) + 1;
-      const tens = Math.floor(Math.random() * 8) + 1;
-      const ones = Math.floor(Math.random() * 8) + 2;
-      const num = hundreds * 100 + tens * 10 + ones;
-      const correct = hundreds * 100 + tens * 10;
-      const wrong1 = hundreds * 100 + (tens + 1) * 10;
-      const wrong2 = hundreds * 100;
-      const wrong3 = correct - 10;
-      const options = this.shuffle([String(correct), String(wrong1), String(wrong2), String(wrong3)]);
-      return {
-        id,
-        category: '버림',
-        question: `${num}을 "십의 자리까지 버림"한 값은?`,
-        options,
-        correctIndex: options.indexOf(String(correct)),
-        hint: `💡 십의 자리 아래 일의 자리 숫자(${ones})를 버려 0으로 만듭니다.`,
-        explanation: `${num}의 일의 자리 ${ones}를 버리면 ${correct}이 됩니다.`
-      };
-    }
+    // 유형 6: 직사각형 넓이 문장제
+    const w = (Math.floor(Math.random() * 5) + 1) * 0.5 + 0.5; // 1.0, 1.5, 2.0 등
+    const h = 0.25;
+    const area = (w * h).toFixed(3).replace(/0$/, '');
+    const correctVal = `${area} ㎡`;
+    const wrong1 = `${(w * h * 10).toFixed(2)} ㎡`;
+    const wrong2 = `${(w * h / 10).toFixed(3)} ㎡`;
+    const wrong3 = `${(w + h).toFixed(2)} ㎡`;
 
-    if (type === '반올림') {
-      const tens = Math.floor(Math.random() * 8) + 2;
-      const isUp = Math.random() > 0.5;
-      const ones = isUp ? Math.floor(Math.random() * 5) + 5 : Math.floor(Math.random() * 5); // 5~9 또는 0~4
-      const num = tens * 10 + ones;
-      const correct = isUp ? (tens + 1) * 10 : tens * 10;
-      const wrong1 = isUp ? tens * 10 : (tens + 1) * 10;
-      const wrong2 = correct + 5;
-      const wrong3 = correct - 5;
-      const options = this.shuffle([String(correct), String(wrong1), String(wrong2), String(wrong3)]);
-      return {
-        id,
-        category: '반올림',
-        question: `${num}을 "십의 자리까지 반올림"하면?`,
-        options,
-        correctIndex: options.indexOf(String(correct)),
-        hint: `💡 일의 자리 숫자가 ${ones}입니다. 0,1,2,3,4는 버리고 5,6,7,8,9는 올립니다!`,
-        explanation: `일의 자리 숫자가 ${ones}이므로 ${isUp ? '올림하여 ' + correct : '버림하여 ' + correct}가 됩니다.`
-      };
-    }
-
-    // 범위 자연수 개수
-    const min = Math.floor(Math.random() * 20) + 10;
-    const diff = Math.floor(Math.random() * 5) + 4; // 4~8
-    const max = min + diff;
-    const count = max - min;
-    const options = this.shuffle([`${count}개`, `${count - 1}개`, `${count + 1}개`, `${count + 2}개`]);
+    const options = this.shuffle([correctVal, wrong1, wrong2, wrong3]);
     return {
       id,
-      category: '수의 범위',
-      question: `${min} 이상 ${max} 미만인 자연수는 모두 몇 개일까요?`,
+      category: '실생활 문장제',
+      question: `가로가 ${w}m이고 세로가 ${h}m인 해적 보물지도의 넓이는 몇 ㎡일까요?`,
       options,
-      correctIndex: options.indexOf(`${count}개`),
-      hint: `💡 ${min}은 포함되고, ${max}는 포함되지 않습니다!`,
-      explanation: `${min}부터 ${max - 1}까지의 자연수이므로 총 ${count}개입니다.`
+      correctIndex: options.indexOf(correctVal),
+      hint: '💡 직사각형의 넓이 = 가로 × 세로입니다.',
+      explanation: `${w} × ${h} = ${correctVal}입니다.`
     };
   }
 
