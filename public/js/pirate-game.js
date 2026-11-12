@@ -966,12 +966,11 @@ export class PirateBattleGame {
         <p style="font-size:1.05rem; line-height:1.6;">${this.currentQuestion.hint}</p>
       </div>
       <div style="font-size:0.9rem; color:#77522d;">
-        <strong>초등 5학년 2학기 1단원 꿀팁:</strong><br>
-        • <strong>이상 / 이하</strong>: 경계가 되는 수를 <strong>포함</strong>해요 (● 채운 점)<br>
-        • <strong>초과 / 미만</strong>: 경계가 되는 수를 <strong>포함하지 않아요</strong> (○ 빈 점)<br>
-        • <strong>올림</strong>: 구하려는 자리 아래 수가 0이 아니면 올려줍니다.<br>
-        • <strong>버림</strong>: 구하려는 자리 아래 수를 0으로 버립니다.<br>
-        • <strong>반올림</strong>: 구하려는 자리 바로 아래 수가 0,1,2,3,4이면 버리고 5,6,7,8,9이면 올립니다.
+        <strong>초등 5학년 2학기 4단원 [7차시] 꿀팁:</strong><br>
+        • <strong>자연수의 곱셈 이용</strong>: 자연수처럼 곱한 뒤 소수점 아래 자리 수만큼 점을 찍어요.<br>
+        • <strong>소수점 위치 규칙</strong>: (소수 두 자리) × (소수 한 자리) = <strong>소수 세 자리 수</strong>!<br>
+        • <strong>분수의 곱셈 변환</strong>: 0.23 × 0.4 = 23/100 × 4/10 = 92/1000 = 0.092<br>
+        • <strong>끝자리 0 생략</strong>: 계산 결과 소수점 아래 맨 끝의 0은 생략해서 적어요 (예: 3.220 → 3.22).
       </div>
     `;
     this.el.hintModal.classList.add('show');
@@ -998,7 +997,7 @@ export class PirateBattleGame {
         <div style="font-size: 3.5rem; margin-bottom: 10px;">🏆👑🏴‍☠️</div>
         <h3 style="font-size:1.6rem; color:#27ae60; margin-bottom:10px;">위대한 대승리!</h3>
         <p style="font-size:1.05rem; line-height:1.6; color:#442a12;">
-          초등 5학년 2학기 수학 1단원 지식을 발휘하여<br>
+          초등 5학년 2학기 4단원 <strong>소수의 곱셈</strong> 실력을 발휘하여<br>
           악명 높은 검은 수염 해적단을 완전히 소탕했습니다!
         </p>
         <div style="display:flex; justify-content:center; gap:20px; margin:20px 0; font-weight:800;">
