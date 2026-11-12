@@ -966,11 +966,10 @@ export class PirateBattleGame {
         <p style="font-size:1.05rem; line-height:1.6;">${this.currentQuestion.hint}</p>
       </div>
       <div style="font-size:0.9rem; color:#77522d;">
-        <strong>초등 5학년 2학기 4단원 [7차시] 꿀팁:</strong><br>
-        • <strong>자연수의 곱셈 이용</strong>: 자연수처럼 곱한 뒤 소수점 아래 자리 수만큼 점을 찍어요.<br>
-        • <strong>소수점 위치 규칙</strong>: (소수 두 자리) × (소수 한 자리) = <strong>소수 세 자리 수</strong>!<br>
-        • <strong>분수의 곱셈 변환</strong>: 0.23 × 0.4 = 23/100 × 4/10 = 92/1000 = 0.092<br>
-        • <strong>끝자리 0 생략</strong>: 계산 결과 소수점 아래 맨 끝의 0은 생략해서 적어요 (예: 3.220 → 3.22).
+        <strong>초등 5학년 2학기 4단원 [8차시] 꿀팁:</strong><br>
+        • <strong>10, 100, 1000을 곱할 때</strong>: 곱의 소수점이 <strong>오른쪽</strong>으로 한 자리씩 이동해요!<br>
+        • <strong>0.1, 0.01, 0.001을 곱할 때</strong>: 곱의 소수점이 <strong>왼쪽</strong>으로 한 자리씩 이동해요!<br>
+        • <strong>(소수) × (소수)의 소수점 위치</strong>: 곱하는 두 수의 <strong>소수점 아래 자리 수를 더한 값</strong>만큼 소수점 아래 자릿수가 정해집니다.
       </div>
     `;
     this.el.hintModal.classList.add('show');
