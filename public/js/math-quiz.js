@@ -1,5 +1,5 @@
 // 초등학교 5학년 2학기 수학 4단원: 소수의 곱셈
-// [7차시] (소수)×(소수)를 알아볼까요(2) - 소수 두 자리 수인 경우 (수학 96~97쪽, 수익 64~65쪽)
+// [8차시] 곱의 소수점 위치는 어떻게 달라질까요 (수학 98~99쪽, 수익 66~67쪽)
 // 문제 은행 및 자동 생성 시스템
 
 export class MathQuizEngine {
@@ -10,233 +10,248 @@ export class MathQuizEngine {
     this.totalQuestions = 0;
     this.lastCorrectIndex = -1; // 연속 동일 번호 정답 방지용
 
-    // 수제 큐레이션된 교과서, 수익, 활동지, 마피아 퀴즈 풀 (24문항)
+    // 수제 큐레이션된 교과서(98~99p), 수익(66~67p), 활동지, OX 퀴즈 풀 (24문항)
     this.curatedPool = [
-      // 1. 교과서 및 수업 PPT 마피아 퀴즈 문제
+      // 1. 교과서 98~99쪽 핵심 활동 문제
       {
         id: 'cur_1',
-        category: '소수의 곱셈',
-        question: '0.23 × 0.4의 계산 결과는 얼마일까요?',
-        options: ['0.092', '0.92', '9.2', '0.0092'],
+        category: '소수점 오른쪽 이동',
+        question: '계단을 1칸 오를 때 0.15 kcal를 소모합니다. 계단을 100칸 오르면 몇 kcal를 소모할까요?',
+        options: ['15 kcal', '1.5 kcal', '0.15 kcal', '150 kcal'],
         correctIndex: 0,
-        hint: '💡 23 × 4 = 92입니다. 소수 두 자리와 소수 한 자리의 곱이므로 소수 셋째 자리 수가 됩니다!',
-        explanation: '0.23(소수 2자리) × 0.4(소수 1자리) = 23/100 × 4/10 = 92/1000 = 0.092입니다.'
+        hint: '💡 0.15 × 100입니다! 100배가 되면 소수점이 오른쪽으로 두 자리 이동합니다.',
+        explanation: '0.15에 100을 곱하면 소수점이 오른쪽으로 두 자리 옮겨져 15 kcal가 됩니다.'
       },
       {
         id: 'cur_2',
-        category: '소수의 곱셈',
-        question: '0.32 × 1.3의 계산 결과는 얼마일까요?',
-        options: ['4.16', '0.416', '0.0416', '41.6'],
+        category: '소수점 이동 규칙',
+        question: '소수에 10, 100, 1000을 곱할 때 곱의 소수점 위치는 어떻게 달라질까요?',
+        options: [
+          '왼쪽으로 한 자리씩 옮겨진다',
+          '오른쪽으로 한 자리씩 옮겨진다',
+          '변하지 않고 그대로이다',
+          '항상 소수 첫째 자리가 된다'
+        ],
         correctIndex: 1,
-        hint: '💡 32 × 13 = 416입니다. 소수점 아래 자릿수가 총 몇 개인지 세어보세요.',
-        explanation: '32 × 13 = 416이고, 소수 2자리와 소수 1자리의 곱이므로 소수 세 자리가 되어 0.416입니다.'
+        hint: '💡 0.15 × 10 = 1.5, 0.15 × 100 = 15처럼 수가 커질 때 소수점이 어느 쪽으로 가는지 보세요!',
+        explanation: '곱하는 수가 10배, 100배, 1000배가 될수록 곱의 소수점은 오른쪽으로 한 자리씩 옮겨집니다.'
       },
       {
         id: 'cur_3',
-        category: '소수의 곱셈',
-        question: '4.03 × 1.2의 계산 결과로 알맞은 것은?',
-        options: ['48.36', '0.4836', '4.836', '4.832'],
+        category: '소수점 왼쪽 이동',
+        question: '자연수나 소수에 0.1, 0.01, 0.001을 차례로 곱할 때 곱의 소수점 위치는 어떻게 될까요?',
+        options: [
+          '오른쪽으로 한 자리씩 옮겨진다',
+          '오른쪽으로 두 자리씩 옮겨진다',
+          '왼쪽으로 한 자리씩 옮겨진다',
+          '왼쪽으로 두 자리씩 옮겨진다'
+        ],
         correctIndex: 2,
-        hint: '💡 4.03은 약 4, 1.2는 약 1이므로 결과는 약 4 근처(4.836)가 됩니다.',
-        explanation: '403 × 12 = 4836에서 소수 두 자리와 소수 한 자리를 곱했으므로 소수 세 자리가 되어 4.836입니다.'
+        hint: '💡 150 × 0.1 = 15, 150 × 0.01 = 1.5처럼 1/10배씩 작아집니다!',
+        explanation: '곱하는 수가 0.1, 0.01, 0.001배가 될수록 곱의 소수점은 왼쪽으로 한 자리씩 옮겨집니다.'
       },
       {
         id: 'cur_4',
-        category: '소수의 곱셈',
-        question: '3.51 × 2.3의 계산 결과는 얼마일까요?',
-        options: ['80.73', '0.8073', '7.073', '8.073'],
+        category: '교과서 99쪽',
+        question: '4 × 7 = 28을 이용할 때, 0.04 × 0.7의 계산 결과로 알맞은 것은?',
+        options: ['2.8', '0.28', '0.0028', '0.028'],
         correctIndex: 3,
-        hint: '💡 351 × 23 = 8073입니다. 소수점 아래 총 3자리가 되도록 점을 찍어보세요.',
-        explanation: '351 × 23 = 8073이므로, 1/100과 1/10을 곱한 1/1000이 되어 8.073입니다.'
+        hint: '💡 0.04(소수 두 자리)와 0.7(소수 한 자리)을 곱하면 소수점 아래 총 세 자리가 됩니다!',
+        explanation: '두 수의 소수점 아래 자릿수의 합이 2 + 1 = 3이므로 28에서 왼쪽으로 세 칸 이동한 0.028입니다.'
       },
       {
         id: 'cur_5',
-        category: '끝자리 0 처리',
-        question: '0.92 × 3.5의 계산 결과로 알맞은 것은 어느 것일까요?',
-        options: ['3.220', '3.22', '32.2', '0.322'],
-        correctIndex: 1,
-        hint: '💡 92 × 35 = 3220입니다. 소수 세 자리(3.220)에서 맨 끝 0은 생략합니다!',
-        explanation: '92 × 35 = 3220이므로 소수 셋째 자리는 3.220이며, 소수점 아래 맨 끝 0을 생략하여 3.22로 씁니다.'
+        category: '교과서 99쪽',
+        question: '1.36 × 1000의 계산 결과는 얼마일까요?',
+        options: ['1360', '136', '13.6', '13600'],
+        correctIndex: 0,
+        hint: '💡 1000을 곱하면 소수점이 오른쪽으로 세 자리 이동합니다. 빈자리는 0으로 채워요!',
+        explanation: '1.36에서 소수점을 오른쪽으로 세 자리 옮기면 1360이 됩니다.'
       },
       {
         id: 'cur_6',
-        category: '소수의 곱셈',
-        question: '1.24 × 0.3의 계산 결과는 얼마일까요?',
-        options: ['3.72', '0.0372', '0.372', '37.2'],
-        correctIndex: 2,
-        hint: '💡 124 × 3 = 372입니다. 소수 2자리와 소수 1자리의 곱입니다.',
-        explanation: '124 × 3 = 372이고 1/100 × 1/10 = 1/1000이므로 0.372입니다.'
+        category: '교과서 99쪽',
+        question: '528 × 0.001의 계산 결과는 얼마일까요?',
+        options: ['52.8', '0.528', '5.28', '0.0528'],
+        correctIndex: 1,
+        hint: '💡 0.001을 곱하면 소수점이 왼쪽으로 세 자리 옮겨집니다!',
+        explanation: '528에서 소수점을 왼쪽으로 세 자리 옮기면 0.528이 됩니다.'
       },
       {
         id: 'cur_7',
-        category: '소수의 곱셈',
-        question: '6.27 × 0.2의 계산 결과는 얼마일까요?',
-        options: ['12.54', '0.1254', '1.244', '1.254'],
-        correctIndex: 3,
-        hint: '💡 627 × 2 = 1254입니다. 소수 세 자리 수가 되도록 점을 찍으세요.',
-        explanation: '627 × 2 = 1254에서 소수 둘째 자리와 소수 첫째 자리를 곱했으므로 1.254입니다.'
+        category: '교과서 99쪽',
+        question: '[보기] 57 × 39 = 2223을 이용하여 0.57 × 3.9를 계산한 값은?',
+        options: ['222.3', '22.23', '2.223', '0.2223'],
+        correctIndex: 2,
+        hint: '💡 0.57(두 자리)과 3.9(한 자리)를 곱했으므로 소수점 아래 세 자리 수가 됩니다.',
+        explanation: '두 수의 소수점 아래 자릿수를 더하면 2 + 1 = 3이므로 2.223입니다.'
       },
       {
         id: 'cur_8',
-        category: '소수의 곱셈',
-        question: '2.17 × 1.3의 계산 결과는 얼마일까요?',
-        options: ['2.821', '28.21', '0.2821', '2.721'],
-        correctIndex: 0,
-        hint: '💡 217 × 13 = 2821입니다. 소수점 위치를 확인해 보세요.',
-        explanation: '217 × 13 = 2821이며, 소수 세 자리로 나타내면 2.821입니다.'
+        category: '교과서 99쪽',
+        question: '[보기] 57 × 39 = 2223을 이용하여 0.57 × 0.39를 계산한 값은?',
+        options: ['22.23', '2.223', '0.02223', '0.2223'],
+        correctIndex: 3,
+        hint: '💡 소수 두 자리 수끼리 곱하면 소수점 아래 몇 자리 수가 될까요? (2 + 2 = 4)',
+        explanation: '소수점 아래 자릿수가 2자리 + 2자리 = 4자리이므로 2223에서 왼쪽으로 네 칸 옮긴 0.2223입니다.'
       },
+
+      // 2. 활동지 및 수익 66~67쪽 핵심 문제
       {
         id: 'cur_9',
-        category: '끝자리 0 처리',
-        question: '2.95 × 3.2의 계산 결과로 알맞은 것은?',
-        options: ['9.440', '94.4', '9.44', '0.944'],
-        correctIndex: 2,
-        hint: '💡 295 × 32 = 9440입니다. 소수 셋째 자리는 9.440이지만 끝의 0은 생략합니다.',
-        explanation: '295 × 32 = 9440이므로 소수 세 자리는 9.440이고, 끝자리 0을 지우면 9.44가 됩니다.'
+        category: '활동지 핵심',
+        question: '2.12 × 100의 계산 결과로 알맞은 것은?',
+        options: ['212', '21.2', '2120', '0.212'],
+        correctIndex: 0,
+        hint: '💡 100을 곱하면 소수점이 오른쪽으로 두 칸 이동합니다!',
+        explanation: '2.12에서 소수점을 오른쪽으로 두 자리 옮기면 212가 됩니다.'
       },
       {
         id: 'cur_10',
-        category: '소수의 곱셈',
-        question: '4.5 × 2.21의 계산 결과는 얼마일까요?',
-        options: ['99.45', '9.945', '0.9945', '9.845'],
+        category: '활동지 핵심',
+        question: '470 × 0.01의 계산 결과는 얼마일까요?',
+        options: ['47', '4.7', '0.47', '4700'],
         correctIndex: 1,
-        hint: '💡 45 × 221 = 9945입니다. 소수 한 자리와 소수 두 자리의 곱이므로 총 세 자리입니다.',
-        explanation: '45 × 221 = 9945이고, 소수 1자리와 2자리를 곱하면 소수 3자리가 되므로 9.945입니다.'
+        hint: '💡 0.01을 곱하면 소수점이 왼쪽으로 두 자리 이동합니다!',
+        explanation: '470에서 소수점을 왼쪽으로 두 자리 옮기면 4.70이므로 4.7이 됩니다.'
       },
-
-      // 2. 활동지 암호 해독 문제 풀
       {
         id: 'cur_11',
-        category: '활동지 암호문제',
-        question: '0.14 × 0.8의 계산 결과는 얼마일까요?',
-        options: ['1.12', '0.0112', '11.2', '0.112'],
-        correctIndex: 3,
-        hint: '💡 14 × 8 = 112입니다. 소수점 아래 두 자리와 한 자리를 더하면 세 자리가 됩니다.',
-        explanation: '14 × 8 = 112이므로 1/1000배를 하면 0.112가 됩니다.'
+        category: '활동지 핵심',
+        question: '8 × 9 = 72일 때, 0.08 × 0.09의 계산 결과는 얼마일까요?',
+        options: ['0.72', '0.072', '0.0072', '7.2'],
+        correctIndex: 2,
+        hint: '💡 소수 두 자리(0.08)와 소수 두 자리(0.09)를 곱하면 소수점 아래 네 자리가 됩니다!',
+        explanation: '72에서 소수점을 왼쪽으로 네 자리 옮기면 빈자리에 0이 두 개 들어가 0.0072가 됩니다.'
       },
       {
         id: 'cur_12',
-        category: '소수의 곱셈',
-        question: '0.5 × 0.05의 계산 결과는 얼마일까요?',
-        options: ['0.25', '0.025', '0.0025', '2.5'],
-        correctIndex: 1,
-        hint: '💡 5 × 5 = 25입니다. 소수 한 자리와 소수 두 자리의 곱이므로 소수 세 자리가 되어야 합니다!',
-        explanation: '5/10 × 5/100 = 25/1000 = 0.025입니다.'
+        category: '보기 활용',
+        question: '[보기] 27 × 61 = 1647을 이용할 때, 2.7 × 610의 값은 얼마일까요?',
+        options: ['16.47', '164.7', '16470', '1647'],
+        correctIndex: 3,
+        hint: '💡 27이 1/10배(2.7)가 되고, 61이 10배(610)가 되었으므로 곱은 그대로입니다!',
+        explanation: '한쪽은 1/10배, 다른 쪽은 10배가 되어 서로 상쇄되므로 결과는 1647로 같습니다.'
       },
       {
         id: 'cur_13',
-        category: '활동지 암호문제',
-        question: '2.3 × 1.41의 계산 결과는 얼마일까요?',
-        options: ['32.43', '0.3243', '3.243', '3.443'],
-        correctIndex: 2,
-        hint: '💡 23 × 141 = 3243입니다. 1/10 × 1/100 = 1/1000이므로 소수 세 자리가 됩니다.',
-        explanation: '23 × 141 = 3243이므로 소수점을 세 자리 앞으로 옮기면 3.243입니다.'
+        category: '보기 활용',
+        question: '[보기] 51 × 35 = 1785일 때, 0.51 × 0.35의 계산 결과는?',
+        options: ['0.1785', '1.785', '17.85', '0.01785'],
+        correctIndex: 0,
+        hint: '💡 소수 두 자리 수와 소수 두 자리 수의 곱은 소수 네 자리 수입니다!',
+        explanation: '51 × 35 = 1785에서 소수점 아래 네 자리가 되도록 점을 찍으면 0.1785입니다.'
       },
       {
         id: 'cur_14',
-        category: '끝자리 0 처리',
-        question: '0.5 × 1.2의 계산 결과로 가장 알맞은 것은?',
-        options: ['0.6', '0.60', '6.0', '0.06'],
-        correctIndex: 0,
-        hint: '💡 5 × 12 = 60입니다. 소수 두 자리는 0.60이지만 맨 끝 0은 생략합니다.',
-        explanation: '0.5 × 1.2 = 0.60이며, 소수점 아래 맨 끝의 0은 생략하여 0.6으로 나타냅니다.'
+        category: '빈칸 추론',
+        question: '397 × 23 = 9131일 때, 3.97 × ( □ ) = 9.131입니다. □ 안에 알맞은 수는?',
+        options: ['0.23', '2.3', '23', '0.023'],
+        correctIndex: 1,
+        hint: '💡 곱이 9.131(소수 세 자리)이고 3.97이 소수 두 자리이므로, □는 소수 한 자리 수여야 합니다!',
+        explanation: '소수 두 자리(3.97)와 소수 한 자리(2.3)를 곱해야 소수 세 자리(9.131)가 됩니다.'
       },
       {
         id: 'cur_15',
-        category: '소수의 곱셈',
-        question: '8.4 × 0.1의 계산 결과는 얼마일까요?',
-        options: ['8.4', '0.084', '84', '0.84'],
-        correctIndex: 3,
-        hint: '💡 0.1을 곱하면 소수점이 왼쪽으로 1칸 이동합니다.',
-        explanation: '8.4에 0.1(1/10)을 곱하면 소수점이 왼쪽으로 한 칸 이동하여 0.84가 됩니다.'
+        category: '빈칸 추론',
+        question: '397 × 23 = 9131일 때, ( □ ) × 0.23 = 913.1입니다. □ 안에 알맞은 수는?',
+        options: ['39.7', '397', '3970', '3.97'],
+        correctIndex: 2,
+        hint: '💡 0.23은 23의 1/100배인데, 결과(913.1)는 9131의 1/10배입니다. □는 397의 10배여야 해요!',
+        explanation: '3970 × 0.23 = 913.1이므로 □ 안에 들어갈 수는 3970입니다.'
       },
       {
         id: 'cur_16',
-        category: '소수의 곱셈',
-        question: '0.7 × 0.31의 계산 결과는 얼마일까요?',
-        options: ['2.17', '0.217', '0.0217', '0.271'],
-        correctIndex: 1,
-        hint: '💡 7 × 31 = 217입니다. 소수 한 자리와 소수 두 자리를 곱하면 소수 세 자리가 됩니다.',
-        explanation: '7/10 × 31/100 = 217/1000 = 0.217입니다.'
+        category: '곱 비교하기',
+        question: '다음 중 계산 결과가 나머지 셋과 다른 하나는 어느 것일까요?',
+        options: [
+          '㉠ 12.9 × 0.1',
+          '㉡ 0.129 × 10',
+          '㉢ 0.0129 × 100',
+          '㉣ 1290 × 0.01'
+        ],
+        correctIndex: 3,
+        hint: '💡 각각의 소수점을 이동해 보세요! ㉠, ㉡, ㉢은 모두 1.29가 됩니다.',
+        explanation: '㉠, ㉡, ㉢은 모두 1.29이지만, ㉣ 1290 × 0.01은 소수점이 왼쪽으로 두 칸 이동해 12.9가 됩니다.'
       },
       {
         id: 'cur_17',
-        category: '소수의 곱셈',
-        question: '9.1 × 2.9의 계산 결과는 얼마일까요?',
-        options: ['2.639', '263.9', '26.39', '27.39'],
-        correctIndex: 2,
-        hint: '💡 91 × 29 = 2639입니다. 소수 한 자리끼리 곱하면 소수 두 자리 수가 됩니다.',
-        explanation: '91 × 29 = 2639에서 1/10 × 1/10 = 1/100이므로 26.39입니다.'
+        category: '곱의 크기 비교',
+        question: '[ 4.15 × 10 ] 과 [ 41.5 × 0.1 ] 중 어느 쪽이 더 클까요?',
+        options: [
+          '4.15 × 10이 더 크다',
+          '41.5 × 0.1이 더 크다',
+          '두 식의 곱이 같다',
+          '비교할 수 없다'
+        ],
+        correctIndex: 0,
+        hint: '💡 4.15 × 10은 소수점이 오른쪽으로 한 칸, 41.5 × 0.1은 왼쪽으로 한 칸 이동합니다!',
+        explanation: '4.15 × 10 = 41.5이고, 41.5 × 0.1 = 4.15이므로 4.15 × 10이 더 큽니다.'
       },
       {
         id: 'cur_18',
-        category: '소수의 곱셈',
-        question: '3.9 × 3.1의 계산 결과는 얼마일까요?',
-        options: ['120.9', '1.209', '11.09', '12.09'],
-        correctIndex: 3,
-        hint: '💡 39 × 31 = 1209입니다. 약 4 × 3 = 12 정도가 되는지 어림해 보세요.',
-        explanation: '39 × 31 = 1209이고 소수 두 자리 수가 되므로 12.09입니다.'
+        category: '실생활 활용',
+        question: '농구공 한 개의 무게는 0.57 kg입니다. 농구공 100개의 무게는 몇 kg일까요?',
+        options: ['5.7 kg', '57 kg', '570 kg', '0.057 kg'],
+        correctIndex: 1,
+        hint: '💡 0.57 × 100입니다! 소수점을 오른쪽으로 두 칸 옮겨보세요.',
+        explanation: '0.57 × 100 = 57이므로 농구공 100개의 무게는 57 kg입니다.'
       },
       {
         id: 'cur_19',
-        category: '소수의 곱셈',
-        question: '1.2 × 4.1의 계산 결과는 얼마일까요?',
-        options: ['4.92', '49.2', '0.492', '4.82'],
-        correctIndex: 0,
-        hint: '💡 12 × 41 = 492입니다. 1/100배를 하면 소수점이 어디에 찍힐까요?',
-        explanation: '12 × 41 = 492에서 소수점 아래 두 자리 수가 되므로 4.92입니다.'
+        category: '수익 67쪽 심화',
+        question: '73 × 6 = 438입니다. 0.73 × ( □ ) = 0.0438이 되려면 □ 안에 들어갈 수는?',
+        options: ['0.6', '6', '0.06', '0.006'],
+        correctIndex: 2,
+        hint: '💡 결과(0.0438)가 소수 네 자리이고 0.73이 소수 두 자리이므로, □도 소수 두 자리 수여야 합니다!',
+        explanation: '0.73(소수 두 자리) × 0.06(소수 두 자리) = 0.0438(소수 네 자리)이므로 정답은 0.06입니다.'
       },
 
-      // 3. 교과서 원리 & 소수점 위치 & 문장제
+      // 3. 수업 게임 (재빨리 OX & 응용 문제)
       {
         id: 'cur_20',
-        category: '자연수 곱셈 활용',
-        question: '141 × 23 = 3243을 이용하여 1.41 × 2.3의 값을 구하면?',
-        options: ['32.43', '3.243', '0.3243', '324.3'],
-        correctIndex: 1,
-        hint: '💡 1.41은 141의 1/100배, 2.3은 23의 1/10배이므로 전체 결과는 1/1000배가 됩니다.',
-        explanation: '141이 1/100배, 23이 1/10배 되었으므로 곱은 3243의 1/1000배인 3.243입니다.'
+        category: '소수점 이동',
+        question: '375 × 0.01을 바르게 계산한 값은 얼마일까요?',
+        options: ['37.5', '3750', '0.375', '3.75'],
+        correctIndex: 3,
+        hint: '💡 0.01을 곱하면 소수점이 왼쪽으로 두 자리 옮겨집니다!',
+        explanation: '375에서 소수점을 왼쪽으로 두 자리 옮기면 3.75가 됩니다.'
       },
       {
         id: 'cur_21',
-        category: '소수점 위치 규칙',
-        question: '(소수 두 자리 수) × (소수 한 자리 수)의 곱은 소수점 아래가 몇 자리일까요? (끝자리가 0이 아닌 경우)',
-        options: ['소수 두 자리', '소수 한 자리', '소수 세 자리', '소수 네 자리'],
-        correctIndex: 2,
-        hint: '💡 곱하는 두 수의 소수점 아래 자리 수(2자리 + 1자리)를 더해보세요!',
-        explanation: '소수 두 자리 수(1/100)와 소수 한 자리 수(1/10)를 곱하면 1/1000이 되므로 소수 세 자리가 됩니다.'
+        category: '소수점 이동',
+        question: '0.83 × ( □ ) = 830이 되려면 □ 안에 어떤 수를 곱해야 할까요?',
+        options: ['1000', '100', '10', '0.001'],
+        correctIndex: 0,
+        hint: '💡 0.83에서 830이 되려면 소수점이 오른쪽으로 몇 칸 이동했는지 세어보세요!',
+        explanation: '0.83 → 8.3(10배) → 83(100배) → 830(1000배)으로 세 자리 이동했으므로 1000을 곱해야 합니다.'
       },
       {
         id: 'cur_22',
-        category: '분수의 곱셈 변환',
-        question: '0.23 × 0.4를 분수의 곱셈으로 바르게 나타낸 식은 어느 것일까요?',
-        options: [
-          '23/10 × 4/100 = 92/100',
-          '23/100 × 4/100 = 92/10000',
-          '23/10 × 4/10 = 92/100',
-          '23/100 × 4/10 = 92/1000'
-        ],
-        correctIndex: 3,
-        hint: '💡 0.23은 23/100이고, 0.4는 4/10입니다.',
-        explanation: '0.23 = 23/100, 0.4 = 4/10이므로 23/100 × 4/10 = 92/1000 = 0.092입니다.'
+        category: '보기 활용',
+        question: '63 × 42 = 2646일 때, 0.63 × 420의 계산 결과는 얼마일까요?',
+        options: ['26.46', '264.6', '2.646', '2646'],
+        correctIndex: 1,
+        hint: '💡 0.63은 1/100배, 420은 10배이므로 전체 결과는 2646의 1/10배가 됩니다!',
+        explanation: '2646에서 소수점을 왼쪽으로 한 자리 옮기면 264.6이 됩니다.'
       },
       {
         id: 'cur_23',
-        category: '어림하기',
-        question: '5.02 × 1.9의 계산 결과를 어림하여 가장 알맞은 소수점 위치를 찾은 것은?',
-        options: ['9.538', '95.38', '0.9538', '953.8'],
-        correctIndex: 0,
-        hint: '💡 5.02는 약 5, 1.9는 약 2이므로 5 × 2 = 10 근처의 값을 찾으세요!',
-        explanation: '5.02 ≒ 5, 1.9 ≒ 2이므로 곱은 약 10 근처여야 합니다. 따라서 9.538이 올바른 값입니다.'
+        category: '곱 비교하기',
+        question: '㉠ 36 × 0.15, ㉡ 3.6 × 1.5, ㉢ 0.36 × 1.5 중 계산 결과가 다른 하나는?',
+        options: ['㉠', '㉡', '㉢', '모두 같다'],
+        correctIndex: 2,
+        hint: '💡 두 수의 소수점 아래 자릿수의 합을 비교해 보세요! ㉠과 ㉡은 총 두 자리, ㉢은 총 세 자리입니다.',
+        explanation: '㉠과 ㉡은 모두 5.4이지만, ㉢ 0.36 × 1.5는 0.54이므로 ㉢이 다릅니다.'
       },
       {
         id: 'cur_24',
         category: '실생활 문장제',
-        question: '해적선 깃발의 가로가 1.4m, 세로가 0.25m입니다. 이 깃발의 넓이는 몇 ㎡일까요?',
-        options: ['3.5 ㎡', '0.035 ㎡', '0.35 ㎡', '35 ㎡'],
-        correctIndex: 2,
-        hint: '💡 직사각형의 넓이 = 가로 × 세로입니다. 14 × 25 = 350을 계산해 보세요.',
-        explanation: '1.4 × 0.25 = 0.350 ㎡이며 끝자리 0을 생략하면 0.35 ㎡가 됩니다.'
+        question: '가로가 0.6m, 세로가 3.2m인 직사각형의 넓이를 구하다가 세로의 소수점을 잘못 찍어 0.192 ㎡가 나왔습니다. 잘못 읽은 세로는 몇 m일까요?',
+        options: ['32 m', '0.032 m', '3.2 m', '0.32 m'],
+        correctIndex: 3,
+        hint: '💡 0.6(소수 한 자리)과 곱해서 0.192(소수 세 자리)가 되려면 세로는 소수 몇 자리여야 할까요?',
+        explanation: '바른 식은 0.6 × 3.2 = 1.92 ㎡이고, 0.192 ㎡가 되려면 0.6 × 0.32를 계산한 것이므로 0.32m입니다.'
       }
     ];
   }
@@ -252,165 +267,179 @@ export class MathQuizEngine {
   }
 
   // 소수점 뒤 불필요한 0 제거 헬퍼 (예: "0.50" -> "0.5", "1.000" -> "1")
-  formatCleanDecimal(num, maxDecimals = 4) {
+  formatCleanDecimal(num, maxDecimals = 5) {
     return parseFloat(num.toFixed(maxDecimals)).toString();
   }
 
-  // 동적 문제 생성기 (소수×소수 6가지 유형 무한 생성)
+  // 동적 문제 생성기 (8차시 곱의 소수점 위치 규칙 6가지 유형 무한 생성)
   generateDynamicQuestion() {
     const types = [
-      '소수두자리X한자리',
-      '소수한자리X두자리',
-      '자연수곱셈이용',
-      '소수점자릿수판별',
-      '끝자리0생략',
-      '직사각형넓이문장제'
+      '10_100_1000곱하기',
+      '0.1_0.01_0.001곱하기',
+      '자연수곱셈소수점찾기',
+      '빈칸곱하는수추론',
+      '곱이같은식찾기',
+      '무게열량실생활'
     ];
     const type = types[Math.floor(Math.random() * types.length)];
     const id = 'dyn_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
 
-    // 유형 1: (소수 두 자리) × (소수 한 자리) -> 소수 세 자리
-    if (type === '소수두자리X한자리') {
-      const [aInt, bInt] = this.getNonZeroProductPair(11, 89, 2, 9);
-      const a = (aInt / 100).toFixed(2);
-      const b = (bInt / 10).toFixed(1);
-      const productInt = aInt * bInt;
-      const correctVal = (productInt / 1000).toFixed(3);
+    // 유형 1: 소수에 10, 100, 1000 곱하기 (소수점 오른쪽 이동)
+    if (type === '10_100_1000곱하기') {
+      const [baseInt] = this.getNonZeroProductPair(112, 987, 2, 3);
+      const decStr = (baseInt / 100).toFixed(2); // 예: 3.47
+      const multipliers = [10, 100, 1000];
+      const mult = multipliers[Math.floor(Math.random() * multipliers.length)];
+      const shift = mult === 10 ? 1 : (mult === 100 ? 2 : 3);
 
-      const wrong1 = (productInt / 100).toFixed(2);
-      const wrong2 = (productInt / 10000).toFixed(4);
-      const wrong3 = ((productInt + 10) / 1000).toFixed(3);
+      const correctVal = this.formatCleanDecimal((baseInt / 100) * mult);
+      const wrong1 = this.formatCleanDecimal((baseInt / 100) * (mult * 10));
+      const wrong2 = this.formatCleanDecimal((baseInt / 100) * (mult / 10));
+      const wrong3 = this.formatCleanDecimal((baseInt / 100) / mult);
 
-      const options = [correctVal, wrong1, wrong2, wrong3];
       return {
         id,
-        category: '소수의 곱셈',
-        question: `${a} × ${b}의 계산 결과는 얼마일까요?`,
-        options,
+        category: '소수점 오른쪽 이동',
+        question: `${decStr} × ${mult}의 계산 결과는 얼마일까요?`,
+        options: [correctVal, wrong1, wrong2, wrong3],
         correctIndex: 0,
-        hint: `💡 ${aInt} × ${bInt} = ${productInt}입니다. 소수 두 자리와 한 자리를 곱했으므로 소수 세 자리가 됩니다.`,
-        explanation: `${a} × ${b} = ${aInt}/100 × ${bInt}/10 = ${productInt}/1000 = ${correctVal}입니다.`
+        hint: `💡 ${mult}을 곱하면 소수점이 오른쪽으로 ${shift}자리 옮겨집니다!`,
+        explanation: `${decStr}에 ${mult}을 곱하면 소수점이 오른쪽으로 ${shift}자리 이동하여 ${correctVal}이 됩니다.`
       };
     }
 
-    // 유형 2: (소수 한 자리) × (소수 두 자리) -> 소수 세 자리
-    if (type === '소수한자리X두자리') {
-      const [bInt, aInt] = this.getNonZeroProductPair(11, 89, 2, 9);
-      const a = (aInt / 10).toFixed(1);
-      const b = (bInt / 100).toFixed(2);
-      const productInt = aInt * bInt;
-      const correctVal = (productInt / 1000).toFixed(3);
+    // 유형 2: 자연수/소수에 0.1, 0.01, 0.001 곱하기 (소수점 왼쪽 이동)
+    if (type === '0.1_0.01_0.001곱하기') {
+      const [baseInt] = this.getNonZeroProductPair(123, 948, 2, 3);
+      const mults = [
+        { str: '0.1', factor: 0.1, shift: 1 },
+        { str: '0.01', factor: 0.01, shift: 2 },
+        { str: '0.001', factor: 0.001, shift: 3 }
+      ];
+      const m = mults[Math.floor(Math.random() * mults.length)];
 
-      const wrong1 = (productInt / 100).toFixed(2);
-      const wrong2 = (productInt / 10).toFixed(1);
-      const wrong3 = (productInt / 10000).toFixed(4);
+      const correctVal = this.formatCleanDecimal(baseInt * m.factor);
+      const wrong1 = this.formatCleanDecimal(baseInt * m.factor * 10);
+      const wrong2 = this.formatCleanDecimal(baseInt * m.factor * 0.1);
+      const wrong3 = this.formatCleanDecimal(baseInt * m.factor * 100);
 
-      const options = [correctVal, wrong1, wrong2, wrong3];
       return {
         id,
-        category: '소수의 곱셈',
-        question: `${a} × ${b}의 계산 결과는 얼마일까요?`,
-        options,
+        category: '소수점 왼쪽 이동',
+        question: `${baseInt} × ${m.str}의 계산 결과는 얼마일까요?`,
+        options: [correctVal, wrong1, wrong2, wrong3],
         correctIndex: 0,
-        hint: `💡 ${aInt} × ${bInt} = ${productInt}입니다. 소수점 아래 총 자릿수를 확인하세요!`,
-        explanation: `${a} × ${b} = ${aInt}/10 × ${bInt}/100 = ${productInt}/1000 = ${correctVal}입니다.`
+        hint: `💡 ${m.str}을 곱하면 소수점이 왼쪽으로 ${m.shift}자리 옮겨집니다!`,
+        explanation: `${baseInt}에 ${m.str}을 곱하면 소수점이 왼쪽으로 ${m.shift}자리 이동하여 ${correctVal}이 됩니다.`
       };
     }
 
-    // 유형 3: 자연수 곱셈 관계를 이용한 소수점 위치 찾기
-    if (type === '자연수곱셈이용') {
-      const [x, y] = this.getNonZeroProductPair(12, 89, 3, 9);
+    // 유형 3: [보기] 자연수의 곱을 이용하여 소수×소수 소수점 위치 찾기 (수99p 4번 유형)
+    if (type === '자연수곱셈소수점찾기') {
+      const [x, y] = this.getNonZeroProductPair(23, 89, 12, 49);
       const prod = x * y;
-      const a = (x / 100).toFixed(2);
-      const b = (y / 10).toFixed(1);
-      const correctVal = (prod / 1000).toFixed(3);
-
-      const wrong1 = (prod / 100).toFixed(2);
-      const wrong2 = (prod / 10).toFixed(1);
-      const wrong3 = (prod / 10000).toFixed(4);
-
-      const options = [correctVal, wrong1, wrong2, wrong3];
-      return {
-        id,
-        category: '자연수 곱셈 활용',
-        question: `${x} × ${y} = ${prod}일 때, ${a} × ${b}의 값은?`,
-        options,
-        correctIndex: 0,
-        hint: `💡 ${a}은 ${x}의 1/100배, ${b}는 ${y}의 1/10배이므로 결과는 1/1000배가 됩니다.`,
-        explanation: `${x} × ${y} = ${prod}에서 1/100 × 1/10 = 1/1000배이므로 ${correctVal}입니다.`
-      };
-    }
-
-    // 유형 4: 소수점 자릿수 판별
-    if (type === '소수점자릿수판별') {
-      const qTypes = [
-        { desc: '소수 두 자리 수와 소수 한 자리 수', digits: 3, answer: '소수 셋째 자리' },
-        { desc: '소수 두 자리 수와 소수 두 자리 수', digits: 4, answer: '소수 넷째 자리' },
-        { desc: '소수 한 자리 수와 소수 두 자리 수', digits: 3, answer: '소수 셋째 자리' }
+      const decPatterns = [
+        { aDiv: 10, bDiv: 100, totalPlaces: 3 },
+        { aDiv: 100, bDiv: 10, totalPlaces: 3 },
+        { aDiv: 100, bDiv: 100, totalPlaces: 4 },
+        { aDiv: 10, bDiv: 10, totalPlaces: 2 }
       ];
-      const item = qTypes[Math.floor(Math.random() * qTypes.length)];
-      const correctVal = item.answer;
-      const options = ['소수 셋째 자리', '소수 둘째 자리', '소수 첫째 자리', '소수 넷째 자리'];
+      const pat = decPatterns[Math.floor(Math.random() * decPatterns.length)];
+      const aStr = this.formatCleanDecimal(x / pat.aDiv);
+      const bStr = this.formatCleanDecimal(y / pat.bDiv);
+      const totalDiv = pat.aDiv * pat.bDiv;
+
+      const correctVal = this.formatCleanDecimal(prod / totalDiv);
+      const wrong1 = this.formatCleanDecimal((prod / totalDiv) * 10);
+      const wrong2 = this.formatCleanDecimal((prod / totalDiv) * 0.1);
+      const wrong3 = this.formatCleanDecimal((prod / totalDiv) * 100);
+
       return {
         id,
-        category: '소수점 위치 규칙',
-        question: `끝자리가 0이 아닐 때, ${item.desc}를 곱하면 그 결과는 소수 몇째 자리 수일까요?`,
-        options,
-        correctIndex: options.indexOf(correctVal),
-        hint: '💡 곱하는 두 수의 소수점 아래 자리 수를 서로 더해보세요!',
-        explanation: `${item.desc}를 곱하면 소수점 아래 자릿수의 합이 되므로 ${correctVal} 수가 됩니다.`
-      };
-    }
-
-    // 유형 5: 끝자리 0이 생략되는 경우 (예: 0.5 × 1.2 = 0.6)
-    if (type === '끝자리0생략') {
-      const pairs = [
-        { a: '0.5', b: '0.4', full: '0.20', clean: '0.2' },
-        { a: '0.5', b: '1.2', full: '0.60', clean: '0.6' },
-        { a: '0.25', b: '0.4', full: '0.100', clean: '0.1' },
-        { a: '1.5', b: '0.2', full: '0.30', clean: '0.3' },
-        { a: '0.35', b: '0.2', full: '0.070', clean: '0.07' },
-        { a: '0.45', b: '0.4', full: '0.180', clean: '0.18' },
-        { a: '1.25', b: '0.4', full: '0.500', clean: '0.5' }
-      ];
-      const item = pairs[Math.floor(Math.random() * pairs.length)];
-      const correctVal = item.clean;
-      const wrong1 = item.full;
-      const wrong2 = this.formatCleanDecimal(parseFloat(item.clean) * 10);
-      const wrong3 = this.formatCleanDecimal(parseFloat(item.clean) / 10);
-
-      const options = [correctVal, wrong1, wrong2, wrong3];
-      return {
-        id,
-        category: '끝자리 0 처리',
-        question: `${item.a} × ${item.b}의 결과를 끝자리 0을 생략하여 바르게 나타낸 것은?`,
-        options,
+        category: '보기 활용',
+        question: `[보기] ${x} × ${y} = ${prod}을 이용하여 ${aStr} × ${bStr}을 계산한 값은?`,
+        options: [correctVal, wrong1, wrong2, wrong3],
         correctIndex: 0,
-        hint: '💡 소수점 아래 맨 끝에 있는 0은 생략하여 간단히 나타냅니다!',
-        explanation: `${item.a} × ${item.b} = ${item.full}이지만, 맨 끝의 0은 생략하므로 ${correctVal}로 씁니다.`
+        hint: `💡 두 수의 소수점 아래 자릿수를 더하면 총 ${pat.totalPlaces}자리입니다!`,
+        explanation: `${x} × ${y} = ${prod}에서 소수점 아래 자릿수의 합이 ${pat.totalPlaces}자리이므로 ${correctVal}입니다.`
       };
     }
 
-    // 유형 6: 직사각형 넓이 문장제
-    const widths = [1.2, 1.4, 1.5, 1.6, 1.8, 2.2, 2.4, 2.5, 3.2];
-    const w = widths[Math.floor(Math.random() * widths.length)];
-    const h = 0.25;
-    const rawArea = w * h;
-    const cleanArea = this.formatCleanDecimal(rawArea, 3);
-    const correctVal = `${cleanArea} ㎡`;
-    const wrong1 = `${this.formatCleanDecimal(rawArea * 10, 2)} ㎡`;
-    const wrong2 = `${this.formatCleanDecimal(rawArea / 10, 4)} ㎡`;
-    const wrong3 = `${this.formatCleanDecimal(w + h, 2)} ㎡`;
+    // 유형 4: 빈칸 추론 (10, 100, 0.1, 0.01 등 어떤 수를 곱했는지 찾기)
+    if (type === '빈칸곱하는수추론') {
+      const [baseInt] = this.getNonZeroProductPair(12, 98, 2, 3);
+      const startNum = this.formatCleanDecimal(baseInt / 10); // 예: 4.7
+      const choices = [
+        { ans: '100', val: this.formatCleanDecimal((baseInt / 10) * 100), desc: '오른쪽으로 두 자리' },
+        { ans: '10', val: this.formatCleanDecimal((baseInt / 10) * 10), desc: '오른쪽으로 한 자리' },
+        { ans: '0.1', val: this.formatCleanDecimal((baseInt / 10) * 0.1), desc: '왼쪽으로 한 자리' },
+        { ans: '0.01', val: this.formatCleanDecimal((baseInt / 10) * 0.01), desc: '왼쪽으로 두 자리' }
+      ];
+      const picked = choices[Math.floor(Math.random() * choices.length)];
+      const options = ['10', '100', '0.1', '0.01'];
 
-    const options = [correctVal, wrong1, wrong2, wrong3];
+      return {
+        id,
+        category: '빈칸 추론',
+        question: `${startNum} × ( □ ) = ${picked.val}일 때, □ 안에 알맞은 수는?`,
+        options,
+        correctIndex: options.indexOf(picked.ans),
+        hint: `💡 ${startNum}에서 ${picked.val}이 되려면 소수점이 어느 쪽으로 몇 칸 이동했는지 확인해 보세요!`,
+        explanation: `소수점이 ${picked.desc} 이동했으므로 □ 안에는 ${picked.ans}이 들어가야 합니다.`
+      };
+    }
+
+    // 유형 5: 곱이 다른 식 찾기 (소수점 자릿수 비교)
+    if (type === '곱이같은식찾기') {
+      const [x, y] = this.getNonZeroProductPair(12, 48, 2, 9);
+      const prod = x * y;
+      // 세 식은 소수 두 자리(prod / 100), 한 식은 소수 한 자리(prod / 10)
+      const opt1 = `${this.formatCleanDecimal(x / 10)} × ${this.formatCleanDecimal(y / 10)}`;
+      const opt2 = `${this.formatCleanDecimal(x / 100)} × ${y}`;
+      const opt3 = `${x} × ${this.formatCleanDecimal(y / 100)}`;
+      const diffOpt = `${this.formatCleanDecimal(x / 10)} × ${y}`;
+
+      return {
+        id,
+        category: '곱 비교하기',
+        question: '다음 중 계산 결과(소수점의 위치)가 나머지 셋과 다른 하나는?',
+        options: [diffOpt, opt1, opt2, opt3],
+        correctIndex: 0,
+        hint: '💡 곱하는 두 수의 소수점 아래 자릿수의 합이 몇 자리인지 각각 세어보세요!',
+        explanation: `나머지 셋은 모두 ${this.formatCleanDecimal(prod / 100)}(소수 두 자리)이지만, ${diffOpt}만 ${this.formatCleanDecimal(prod / 10)}(소수 한 자리)입니다.`
+      };
+    }
+
+    // 유형 6: 실생활 (10개, 100개, 1000개 무게/열량 구하기)
+    const items = [
+      { name: '야구공 한 개의 무게', unit: 'kg', val: 0.14 },
+      { name: '사과 한 개의 무게', unit: 'kg', val: 0.28 },
+      { name: '계단 한 칸을 오를 때 소모 열량', unit: 'kcal', val: 0.15 },
+      { name: '초콜릿 한 개의 무게', unit: 'g', val: 9.41 },
+      { name: '비타민 한 알의 무게', unit: 'g', val: 1.25 }
+    ];
+    const item = items[Math.floor(Math.random() * items.length)];
+    const counts = [10, 100, 1000];
+    const count = counts[Math.floor(Math.random() * counts.length)];
+
+    const correctNum = this.formatCleanDecimal(item.val * count);
+    const wrong1Num = this.formatCleanDecimal(item.val * count * 10);
+    const wrong2Num = this.formatCleanDecimal(item.val * count * 0.1);
+    const wrong3Num = this.formatCleanDecimal(item.val * count * 0.01);
+
     return {
       id,
-      category: '실생활 문장제',
-      question: `가로가 ${w}m이고 세로가 ${h}m인 해적 보물지도의 넓이는 몇 ㎡일까요?`,
-      options,
+      category: '실생활 활용',
+      question: `${item.name}가 ${item.val} ${item.unit}일 때, ${count}개의 전체 양은 얼마일까요?`,
+      options: [
+        `${correctNum} ${item.unit}`,
+        `${wrong1Num} ${item.unit}`,
+        `${wrong2Num} ${item.unit}`,
+        `${wrong3Num} ${item.unit}`
+      ],
       correctIndex: 0,
-      hint: '💡 직사각형의 넓이 = 가로 × 세로입니다.',
-      explanation: `${w} × ${h} = ${correctVal}입니다.`
+      hint: `💡 ${item.val} × ${count}을 계산해 보세요! 소수점을 오른쪽으로 옮기면 됩니다.`,
+      explanation: `${item.val} × ${count} = ${correctNum}이므로 정답은 ${correctNum} ${item.unit}입니다.`
     };
   }
 
